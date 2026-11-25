@@ -152,7 +152,7 @@
    "year": 2023,
    "fbd_region": "경상남도창원시",
    "population": 1009038,
-   "source": "KOSIS DT_1YL20651E 2023 통합창원시 계; FBD_DATA_ZIP/2023.csv 창원 블록이 2022값 복사(유방암 11/4 population_final_audit)"
+   "source": "KOSIS DT_1YL20651E 2023 Changwon-si total (the 2023 source block repeated the 2022 value)"
   }
  ],
  "graph": "593-edge contact graph, ST_GRAPH=04_분석/OBES/graph_593.graph",

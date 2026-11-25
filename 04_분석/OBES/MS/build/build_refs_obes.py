@@ -31,7 +31,7 @@ for k in keys:
     if k.startswith("web:"): out[k] = WEB[k]; continue
     if k in out: continue
     doi = M.loc[k, "doi"]; assert doi, k
-    m = json.load(urllib.request.urlopen(urllib.request.Request("https://api.crossref.org/works/" + urllib.parse.quote(doi), headers={"User-Agent": "research (mailto:kimsd@hongik.ac.kr)"}), timeout=60))["message"]
+    m = json.load(urllib.request.urlopen(urllib.request.Request("https://api.crossref.org/works/" + urllib.parse.quote(doi), headers={"User-Agent": "reference-metadata-script/1.0"}), timeout=60))["message"]
     au = [f"{a.get('family','')} {''.join(x[0] for x in re.split(r'[ -]', a.get('given','')) if x)}".strip() for a in m.get("author", [])]
     ct = (m.get("container-title") or [""])[0]; jt = JABBR.get(ct, (m.get("short-container-title") or [ct])[0])
     yr = (m.get("published-print") or m.get("published-online") or m.get("issued"))["date-parts"][0][0]

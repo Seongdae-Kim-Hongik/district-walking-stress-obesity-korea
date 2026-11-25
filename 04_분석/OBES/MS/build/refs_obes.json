@@ -257,7 +257,7 @@
    "Jeong SM",
    "Han K"
   ],
-  "title": "2025 obesity fact sheet for Korea: prevalence of obesity, abdominal obesity from 2014 to 2023 and prevalence of chronic diseases according to obesity status",
+  "title": "2025 obesity fact sheet for Korea: prevalence of obesity, abdominal obesity from 2014 to 2023 and prevalence of chronic disease by obesity status",
   "journal": "J Obes Metab Syndr",
   "year": 2026,
   "vol": "35",
@@ -265,7 +265,7 @@
   "pages": "176-187",
   "doi": "10.7570/jomes25094",
   "pmid": "41942294",
-  "verified": "PubMed esummary 2026-11-11"
+  "verified": "PubMed efetch 2026-11-24 (title per PubMed)"
  },
  "kinge2015educational": {
   "type": "journal",
@@ -708,5 +708,308 @@
   "url": "https://www.data.go.kr",
   "year": 2026,
   "accessed": "October 20, 2026"
+ },
+ "ko2022differences": {
+  "type": "journal",
+  "authors": [
+   "Ko Y",
+   "Choi S",
+   "Won J",
+   "Lee YK",
+   "Kim DH",
+   "Lee SK"
+  ],
+  "title": "Differences in accuracy of height, weight, and body mass index between self-reported and measured using the 2018 Korea Community Health Survey data",
+  "journal": "Epidemiol Health",
+  "year": 2022,
+  "vol": "44",
+  "issue": "",
+  "pages": "e2022024",
+  "doi": "10.4178/epih.e2022024",
+  "pmid": "35209710",
+  "verified": "PubMed efetch 2026-11-24"
+ },
+ "gao2023spatial": {
+  "type": "journal",
+  "authors": [
+   "Gao PA",
+   "Wakefield J"
+  ],
+  "title": "A spatial variance-smoothing area level model for small area estimation of demographic rates",
+  "journal": "Int Stat Rev",
+  "year": 2023,
+  "vol": "91",
+  "issue": "3",
+  "pages": "493-510",
+  "doi": "10.1111/insr.12556",
+  "pmid": "39469131",
+  "verified": "PubMed efetch 2026-11-24"
+ },
+ "kim2023comparison": {
+  "type": "journal",
+  "authors": [
+   "Kim I",
+   "Kang HY",
+   "Khang YH"
+  ],
+  "title": "Comparison of Bayesian spatiotemporal models for small-area life expectancy: a simulation study",
+  "journal": "Am J Epidemiol",
+  "year": 2023,
+  "vol": "192",
+  "issue": "8",
+  "pages": "1396-1405",
+  "doi": "10.1093/aje/kwad073",
+  "pmid": "36963380",
+  "verified": "PubMed efetch 2026-11-24"
+ },
+ "khan2022restricted": {
+  "type": "journal",
+  "authors": [
+   "Khan K",
+   "Calder CA"
+  ],
+  "title": "Restricted spatial regression methods: implications for inference",
+  "journal": "J Am Stat Assoc",
+  "year": 2022,
+  "vol": "117",
+  "issue": "537",
+  "pages": "482-494",
+  "doi": "10.1080/01621459.2020.1788949",
+  "pmid": "36210885",
+  "verified": "PubMed efetch 2026-11-24"
+ },
+ "steptoe2023obesity": {
+  "type": "journal",
+  "authors": [
+   "Steptoe A",
+   "Frank P"
+  ],
+  "title": "Obesity and psychological distress",
+  "journal": "Philos Trans R Soc Lond B Biol Sci",
+  "year": 2023,
+  "vol": "378",
+  "issue": "1888",
+  "pages": "20220225",
+  "doi": "10.1098/rstb.2022.0225",
+  "pmid": "37661745",
+  "verified": "PubMed efetch 2026-11-24"
+ },
+ "tomiyama2019stress": {
+  "type": "journal",
+  "authors": [
+   "Tomiyama AJ"
+  ],
+  "title": "Stress and obesity",
+  "journal": "Annu Rev Psychol",
+  "year": 2019,
+  "vol": "70",
+  "issue": "",
+  "pages": "703-718",
+  "doi": "10.1146/annurev-psych-010418-102936",
+  "pmid": "29927688",
+  "verified": "PubMed efetch 2026-11-24"
+ },
+ "kivimaki2015job": {
+  "type": "journal",
+  "authors": [
+   "Kivimäki M",
+   "Singh-Manoux A",
+   "Nyberg S",
+   "Jokela M",
+   "Virtanen M"
+  ],
+  "title": "Job strain and risk of obesity: systematic review and meta-analysis of cohort studies",
+  "journal": "Int J Obes (Lond)",
+  "year": 2015,
+  "vol": "39",
+  "issue": "11",
+  "pages": "1597-1600",
+  "doi": "10.1038/ijo.2015.103",
+  "pmid": "26041697",
+  "verified": "PubMed efetch 2026-11-24"
+ },
+ "golzarand2022association": {
+  "type": "journal",
+  "authors": [
+   "Golzarand M",
+   "Salari-Moghaddam A",
+   "Mirmiran P"
+  ],
+  "title": "Association between alcohol intake and overweight and obesity: a systematic review and dose-response meta-analysis of 127 observational studies",
+  "journal": "Crit Rev Food Sci Nutr",
+  "year": 2022,
+  "vol": "62",
+  "issue": "29",
+  "pages": "8078-8098",
+  "doi": "10.1080/10408398.2021.1925221",
+  "pmid": "33998940",
+  "verified": "PubMed efetch 2026-11-24"
+ },
+ "park2017relationship": {
+  "type": "journal",
+  "authors": [
+   "Park KY",
+   "Park HK",
+   "Hwang HS"
+  ],
+  "title": "Relationship between abdominal obesity and alcohol drinking pattern in normal-weight, middle-aged adults: the Korea National Health and Nutrition Examination Survey 2008-2013",
+  "journal": "Public Health Nutr",
+  "year": 2017,
+  "vol": "20",
+  "issue": "12",
+  "pages": "2192-2200",
+  "doi": "10.1017/S1368980017001045",
+  "pmid": "28641594",
+  "verified": "PubMed efetch 2026-11-24"
+ },
+ "carrerastorres2018role": {
+  "type": "journal",
+  "authors": [
+   "Carreras-Torres R",
+   "Johansson M",
+   "Haycock PC",
+   "Relton CL",
+   "Davey Smith G",
+   "Brennan P",
+   "Martin RM"
+  ],
+  "title": "Role of obesity in smoking behaviour: mendelian randomisation study in UK Biobank",
+  "journal": "BMJ",
+  "year": 2018,
+  "vol": "361",
+  "issue": "",
+  "pages": "k1767",
+  "doi": "10.1136/bmj.k1767",
+  "pmid": "29769355",
+  "verified": "PubMed efetch 2026-11-24"
+ },
+ "taylor2019effect": {
+  "type": "journal",
+  "authors": [
+   "Taylor AE",
+   "Richmond RC",
+   "Palviainen T",
+   "Loukola A",
+   "Wootton RE",
+   "Kaprio J",
+   "Relton CL",
+   "Davey Smith G",
+   "Munafò MR"
+  ],
+  "title": "The effect of body mass index on smoking behaviour and nicotine metabolism: a mendelian randomization study",
+  "journal": "Hum Mol Genet",
+  "year": 2019,
+  "vol": "28",
+  "issue": "8",
+  "pages": "1322-1330",
+  "doi": "10.1093/hmg/ddy434",
+  "pmid": "30561638",
+  "verified": "PubMed efetch 2026-11-24"
+ },
+ "chiolero2008consequences": {
+  "type": "journal",
+  "authors": [
+   "Chiolero A",
+   "Faeh D",
+   "Paccaud F",
+   "Cornuz J"
+  ],
+  "title": "Consequences of smoking for body weight, body fat distribution, and insulin resistance",
+  "journal": "Am J Clin Nutr",
+  "year": 2008,
+  "vol": "87",
+  "issue": "4",
+  "pages": "801-809",
+  "doi": "10.1093/ajcn/87.4.801",
+  "pmid": "18400700",
+  "verified": "PubMed efetch 2026-11-24"
+ },
+ "chung2017gender": {
+  "type": "journal",
+  "authors": [
+   "Chung W",
+   "Lim SJ",
+   "Lee S",
+   "Kim R",
+   "Kim J"
+  ],
+  "title": "Gender-specific interactions between education and income in relation to obesity: a cross-sectional analysis of the Fifth Korea National Health and Nutrition Examination Survey (KNHANES V)",
+  "journal": "BMJ Open",
+  "year": 2017,
+  "vol": "7",
+  "issue": "12",
+  "pages": "e014276",
+  "doi": "10.1136/bmjopen-2016-014276",
+  "pmid": "29288171",
+  "verified": "PubMed efetch 2026-11-24"
+ },
+ "jun2018gender": {
+  "type": "journal",
+  "authors": [
+   "Jun HJ",
+   "Namgung M"
+  ],
+  "title": "Gender difference and spatial heterogeneity in local obesity",
+  "journal": "Int J Environ Res Public Health",
+  "year": 2018,
+  "vol": "15",
+  "issue": "2",
+  "pages": "311",
+  "doi": "10.3390/ijerph15020311",
+  "pmid": "29439430",
+  "verified": "PubMed efetch 2026-11-24"
+ },
+ "reich2006effects": {
+  "type": "journal",
+  "authors": [
+   "Reich BJ",
+   "Hodges JS",
+   "Zadnik V"
+  ],
+  "title": "Effects of residual smoothing on the posterior of the fixed effects in disease-mapping models",
+  "journal": "Biometrics",
+  "year": 2006,
+  "vol": "62",
+  "issue": "4",
+  "pages": "1197-1206",
+  "doi": "10.1111/j.1541-0420.2006.00617.x",
+  "pmid": "17156295",
+  "verified": "PubMed efetch 2026-11-24"
+ },
+ "han2018spatial": {
+  "type": "journal",
+  "authors": [
+   "Han EJ",
+   "Kang K",
+   "Sohn SY"
+  ],
+  "title": "Spatial association of public sports facilities with body mass index in Korea",
+  "journal": "Geospat Health",
+  "year": 2018,
+  "vol": "13",
+  "issue": "1",
+  "pages": "542",
+  "doi": "10.4081/gh.2018.542",
+  "pmid": "29772876",
+  "verified": "PubMed efetch 2026-11-24"
+ },
+ "yun2026spatial": {
+  "type": "journal",
+  "authors": [
+   "Yun A",
+   "Jung H",
+   "Jung G",
+   "Kim B",
+   "Choi Y"
+  ],
+  "title": "Spatial analysis of the association between convenience store density and the prevalence of obesity and hypertension in South Korea",
+  "journal": "Front Public Health",
+  "year": 2026,
+  "vol": "14",
+  "issue": "",
+  "pages": "1857479",
+  "doi": "10.3389/fpubh.2026.1857479",
+  "pmid": "42558617",
+  "verified": "PubMed efetch 2026-11-24"
  }
 }

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env python3
 # District maps.
 import os, unicodedata
 import numpy as np, pandas as pd, geopandas as gpd, matplotlib

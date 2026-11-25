@@ -10,7 +10,7 @@ from docx.oxml import OxmlElement
 
 FONT="Times New Roman"
 
-class JKMS:
+class DocxEngine:
     def __init__(self,cite="sup"):
         self.cite=cite
         self.doc=Document(); d=self.doc

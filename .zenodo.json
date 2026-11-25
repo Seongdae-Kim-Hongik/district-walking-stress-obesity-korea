@@ -1,7 +1,7 @@
 {
- "title": "Which district conditions move with adult obesity in Korea? Walking, stress, drinking, and education over 13 survey years (analysis code)",
+ "title": "Do walking, stress, drinking, and education distinguish districts with more adult obesity? (analysis code)",
  "upload_type": "software",
- "version": "1.1.0",
+ "version": "1.2.0",
  "access_right": "open",
  "license": "MIT",
  "creators": [
@@ -11,7 +11,7 @@
    "orcid": "0000-0002-1525-0091"
   }
  ],
- "description": "Analysis code for a small-area study of self-reported adult obesity across the 229 districts of the Republic of Korea, 2011-2024: data preparation, spatiotemporal Fay-Herriot models (R-INLA) with sensitivity analyses, number extraction, maps and figures. Code only; the processed district-year data are not included. All source statistics are public aggregated statistics. Software: R 4.6.0, R-INLA 25.10.19, Python 3.9.6.",
+ "description": "Analysis code for a small-area study of self-reported adult obesity across the 229 districts of the Republic of Korea, 2011-2024: pre-model data gate and panel correction, spatiotemporal Fay-Herriot models (R-INLA) with sensitivity analyses, additional analyses, number extraction, maps and figures. Code only; the processed district-year data are not included. All source statistics are public aggregated statistics. Software: R 4.6.0, R-INLA 25.10.19, Python 3.9.6.",
  "keywords": [
   "obesity",
   "small-area estimation",
@@ -22,7 +22,7 @@
  ],
  "related_identifiers": [
   {
-   "identifier": "https://github.com/Seongdae-Kim-Hongik/district-walking-stress-obesity-korea/tree/v1.1.0",
+   "identifier": "https://github.com/Seongdae-Kim-Hongik/district-walking-stress-obesity-korea/tree/v1.2.0",
    "relation": "isSupplementTo",
    "scheme": "url"
   }

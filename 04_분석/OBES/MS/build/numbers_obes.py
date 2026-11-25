@@ -1,12 +1,22 @@
-# Reads result tables and computes every reported number.
+# Reads result tables and computes every reported number (half-up rounding).
+# Environment: OBES_RES (result folder, default 04_분석/OBES/results_std3), OBES_FO (survey outcomes), OBES_META (panel variable summary).
 import os, json, unicodedata
+from decimal import Decimal as _D, ROUND_HALF_UP as _RHU
+import builtins as _bi
+def round(x, nd=None):
+    try:
+        q = _D(repr(float(x))).quantize(_D(1).scaleb(-(nd or 0)), rounding=_RHU)
+    except Exception:
+        return _bi.round(x, nd) if nd is not None else _bi.round(x)
+    return float(q) if nd else int(q)
+
 import pandas as pd, numpy as np
 NFC = lambda s: unicodedata.normalize("NFC", str(s))
 HERE = os.path.dirname(os.path.abspath(__file__)); AN = os.path.normpath(os.path.join(HERE, "..", "..", "..")); ROOT = os.path.dirname(AN)
-R = os.path.join(AN, "OBES", "results_std3")
+R = os.environ.get("OBES_RES", os.path.join(AN, "OBES", "results_std3"))
 rd = lambda f: pd.read_csv(os.path.join(R, f))
 N = {}
-FO = pd.read_csv(os.path.join(ROOT, "02_패널", "OBES_fh_outcomes.csv"), encoding="utf-8-sig"); FO = FO[FO.year != 2019]
+FO = pd.read_csv(os.environ.get("OBES_FO", os.path.join(ROOT, "02_패널", "OBES_fh_outcomes.csv")), encoding="utf-8-sig"); FO = FO[FO.year != 2019]
 assert len(FO) == 2977 and FO.SR.notna().all()
 N["n_cells"] = len(FO); N["n_resp_total"] = int(FO.N.sum()); N["n_resp_median"] = int(FO.N.median()); N["n_resp_min"] = int(FO.N.min())
 pw = pd.Series({y: np.average(g.SR, weights=g.population) for y, g in FO.groupby("year")})
@@ -29,7 +39,8 @@ m = rd("S3_main_OR.csv").set_index("cov"); N["main"] = {k: dict(OR=r.OR, lo=r.lo
 mv = rd("S7_multiverse_summary.csv").set_index("cov"); N["mv"] = {k: dict(cred=r.cred_frac, sign=r.sign_agree, robust=bool(r.robust)) for k, r in mv.iterrows()}
 kh = rd("S8_KH.csv"); N["kh"] = {f"{r.model}|{r['cov']}": dict(OR=r.OR, lo=r.lo, hi=r.hi, cred=bool(r.cred)) for _, r in kh.iterrows()}
 ROB = [k for k in mv.index if mv.loc[k, "robust"] and kh[(kh["cov"] == k) & kh.model.isin(["KH_II", "KH_IV"])].cred.all()]
-assert set(ROB) == {"walking_practice_rate", "ext__restaurant_per10k", "high_risk_drinking_rate_drinkers", "current_smoking_rate", "perceived_stress_rate", "tertiary_educated_share"}, ROB
+ROB_V1 = {"walking_practice_rate", "ext__restaurant_per10k", "high_risk_drinking_rate_drinkers", "current_smoking_rate", "perceived_stress_rate", "tertiary_educated_share"}
+N["robust_v1"] = sorted(ROB_V1); N["robust_same_as_v1"] = set(ROB) == ROB_V1
 N["robust"] = ROB
 bw = rd("S9_between_within.csv"); N["bw"] = {f"{r['cov']}|{r.component}": dict(OR=r.OR, lo=r.lo, hi=r.hi, cred=bool(r.cred)) for _, r in bw.iterrows()}
 nc = rd("S3_negcontrol.csv"); N["neg"] = {r["cov"]: dict(OR=r.OR, lo=r.lo, hi=r.hi, cred=bool(r.cred)) for _, r in nc.iterrows()}; assert not nc.cred.any()
@@ -49,7 +60,7 @@ cv = rd("S5_covid.csv"); N["covid"] = {r["cov"]: dict(OR=r.OR, lo=r.lo, hi=r.hi,
 s19 = rd("S19_step2018.csv"); N["s19"] = {f"{r.variant}|{r['cov']}": dict(OR=r.OR, lo=r.lo, hi=r.hi, cred=bool(r.cred)) for _, r in s19.iterrows()}
 mvr = rd("S7_multiverse_results.csv"); N["mv_n"] = mvr.groupby("cov").spec.nunique().astype(int).to_dict()
 so = rd("S14_selfreport2018_OR.csv"); N["self18_OR"] = {r["cov"]: dict(OR=r.OR, lo=r.lo, hi=r.hi, cred=bool(r.cred)) for _, r in so.iterrows()}
-META = pd.read_csv(os.path.join(AN, "OBES", "panel_META_OBES_std3.csv"), encoding="utf-8-sig").set_index("variable")
+META = pd.read_csv(os.environ.get("OBES_META", os.path.join(AN, "OBES", "panel_META_OBES_std3.csv")), encoding="utf-8-sig").set_index("variable")
 N["filled"] = {v: int(META.loc[v, "n_imputed_interp"] + META.loc[v, "n_imputed_sgg_mean"] + META.loc[v, "n_imputed_year_mean"]) for v in META.index}
 N["sr_mean_all"] = round(float(FO.SR.mean()), 1)
 json.dump(N, open(os.path.join(HERE, "numbers_obes.json"), "w"), ensure_ascii=False, indent=1, default=float)

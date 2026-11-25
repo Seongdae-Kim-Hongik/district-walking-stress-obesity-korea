@@ -1,13 +1,13 @@
 cff-version: 1.2.0
 message: "If you use this code, please cite it as below."
-title: "Which district conditions move with adult obesity in Korea? Walking, stress, drinking, and education over 13 survey years (analysis code)"
+title: "Do walking, stress, drinking, and education distinguish districts with more adult obesity? (analysis code)"
 authors:
   - family-names: Kim
     given-names: Seongdae
     affiliation: Hongik University
     orcid: "https://orcid.org/0000-0002-1525-0091"
-version: 1.1.0
-doi: "10.5281/zenodo.24518235"
+version: 1.2.0
+doi: "10.5281/zenodo.24527820"
 license: MIT
 date-released: "2026-11-25"
 repository-code: "https://github.com/Seongdae-Kim-Hongik/district-walking-stress-obesity-korea"

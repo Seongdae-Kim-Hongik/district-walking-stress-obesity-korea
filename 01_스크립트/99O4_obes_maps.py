@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# SUPERSEDED in v1.2.0: earlier Figure 1 layout, replaced by 99O4_obes_maps_print.py.
 # District maps.
 import os, unicodedata
 import numpy as np, pandas as pd, geopandas as gpd, matplotlib

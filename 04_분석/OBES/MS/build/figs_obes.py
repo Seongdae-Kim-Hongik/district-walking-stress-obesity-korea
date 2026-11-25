@@ -1,3 +1,4 @@
+# SUPERSEDED in v1.2.0: earlier figure layout, replaced by figs_obes_print.py (Figure 2) and 01_스크립트/99O4_obes_maps_print.py (Figure 1).
 # Figures.
 import os, json, shutil
 import numpy as np, matplotlib

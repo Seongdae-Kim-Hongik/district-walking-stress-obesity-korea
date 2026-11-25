@@ -1,4 +1,4 @@
-# Figure 2 forest plot at print size (170 mm wide, 8 pt text, OR and 95% CrI column, 600 dpi). Figure 1 is drawn by 01_스크립트/99O4_obes_maps_v2.py.
+# Figure 2 forest plot at print size (170 mm wide, 8 pt text, OR and 95% CrI column, 600 dpi). Figure 1 is drawn by 01_스크립트/99O4_obes_maps_print.py.
 import os
 import numpy as np, matplotlib
 matplotlib.use("Agg"); import matplotlib.pyplot as plt

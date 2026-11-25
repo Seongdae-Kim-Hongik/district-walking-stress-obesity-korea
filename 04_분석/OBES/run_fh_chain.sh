@@ -1,4 +1,5 @@
 #!/bin/bash
+# SUPERSEDED in v1.2.0: the chain is now run by run/make_jobs.py and run/runner.sh (steps S0-S31, extra analyses, +1 sensitivity).
 # Runs the model chain.
 S=${ST_ROOT:-.}/01_스크립트; cd $S; T=OBES; L=${ST_ROOT:-.}/04_분석/$T
 export ST_GRAPH=$L/graph_593.graph ST_THREADS=1 ST_VER=std3

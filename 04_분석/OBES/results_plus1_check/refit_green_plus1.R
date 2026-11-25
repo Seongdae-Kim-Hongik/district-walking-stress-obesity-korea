@@ -1,3 +1,4 @@
+# SUPERSEDED in v1.2.0: replaced by 01_스크립트/84_refit_green_plus1.R, which sources 81fh_obes.R instead of copying its model code.
 # Sensitivity of the main model to the +1 offset in the log green-zone covariate: the main model refitted with only that covariate changed. Model code is the same as 81fh_obes.R.
 suppressPackageStartupMessages({library(INLA);library(sf);library(spdep);library(jsonlite)})
 args<-commandArgs(trailingOnly=TRUE);TAG<-args[1];stopifnot(TAG=="OBES")

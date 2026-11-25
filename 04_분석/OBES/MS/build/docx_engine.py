@@ -16,10 +16,19 @@ class DocxEngine:
         self.doc=Document(); d=self.doc
         st=d.styles["Normal"]; st.font.name=FONT; st.font.size=Pt(12); st.element.rPr.rFonts.set(qn("w:eastAsia"),FONT)
         st.paragraph_format.space_after=Pt(0); st.paragraph_format.line_spacing_rule=WD_LINE_SPACING.DOUBLE
+        dd=d.styles.element.find(qn("w:docDefaults")); ppd=dd.find(qn("w:pPrDefault")) if dd is not None else None
+        if ppd is not None:
+            pp_=ppd.find(qn("w:pPr"))
+            if pp_ is None: pp_=OxmlElement("w:pPr"); ppd.append(pp_)
+            sp_=pp_.find(qn("w:spacing"))
+            if sp_ is None: sp_=OxmlElement("w:spacing"); pp_.append(sp_)
+            for a_,v_ in (("w:after","0"),("w:line","240"),("w:lineRule","auto")): sp_.set(qn(a_),v_)
         for s in d.sections:
             s.page_width=Cm(21.0); s.page_height=Cm(29.7); s.top_margin=s.bottom_margin=s.left_margin=s.right_margin=Cm(2.54)
             sp=s._sectPr; ln=OxmlElement("w:lnNumType"); ln.set(qn("w:countBy"),"1"); ln.set(qn("w:restart"),"continuous"); ln.set(qn("w:distance"),"360"); sp.append(ln)
             fp=s.footer.paragraphs[0]; fp.alignment=WD_ALIGN_PARAGRAPH.CENTER
+            _pp=fp._p.get_or_add_pPr(); _sl=OxmlElement("w:suppressLineNumbers"); _ps=_pp.find(qn("w:pStyle"))
+            (_ps.addnext(_sl) if _ps is not None else _pp.insert(0,_sl))
             for kind,txt in (("begin",None),("instr","PAGE"),("end",None)):
                 r=fp.add_run(); r.font.size=Pt(10); r.font.name=FONT
                 if kind=="instr": it=OxmlElement("w:instrText"); it.set(qn("xml:space"),"preserve"); it.text=txt; r._element.append(it)
@@ -113,9 +122,13 @@ class DocxEngine:
         tblPr=tbl._tbl.tblPr
         borders=OxmlElement("w:tblBorders")
         for edge,val in (("top","single"),("bottom","single"),("insideH","nil"),("insideV","nil"),("left","nil"),("right","nil")):
-            e=OxmlElement(f"w:{edge}"); e.set(qn("w:val"),val); e.set(qn("w:sz"),"6"); e.set(qn("w:space"),"0"); e.set(qn("w:color"),"000000"); borders.append(e)
+            e=OxmlElement(f"w:{edge}"); e.set(qn("w:val"),val)
+            if val!="nil": e.set(qn("w:sz"),"6"); e.set(qn("w:space"),"0"); e.set(qn("w:color"),"000000")
+            borders.append(e)
         tblPr.append(borders)
-        lay=OxmlElement("w:tblLayout"); lay.set(qn("w:type"),"fixed"); tblPr.append(lay)
+        lay=tblPr.find(qn("w:tblLayout"))
+        if lay is None: lay=OxmlElement("w:tblLayout"); tblPr.append(lay)
+        lay.set(qn("w:type"),"fixed")
         for gc,w in zip(tbl._tbl.tblGrid.findall(qn("w:gridCol")),widths_cm): gc.set(qn("w:w"),str(int(w*567)))
         def cell(c,text,bold=False,align="left",fs=fs):
             c.text=""; p=c.paragraphs[0]; p.paragraph_format.space_after=Pt(0); p.paragraph_format.space_before=Pt(0)
@@ -131,15 +144,22 @@ class DocxEngine:
             r=tbl.add_row(); trflag(r,"cantSplit"); last=r; made.append((r,bool(row) and row[0]=="__H__"))
             if row and row[0]=="__H__":
                 m=r.cells[0].merge(r.cells[ncol-1]); cell(m,row[1],bold=True); continue
+            if row and row[0]=="__SP__":
+                m=r.cells[0].merge(r.cells[ncol-1]); m.text=""; pp=m.paragraphs[0]; pp.paragraph_format.space_before=Pt(0); pp.paragraph_format.space_after=Pt(0)
+                pp.paragraph_format.line_spacing_rule=WD_LINE_SPACING.EXACTLY; pp.paragraph_format.line_spacing=Pt(8.5)
+                trPr=r._tr.get_or_add_trPr(); h=OxmlElement("w:trHeight"); h.set(qn("w:val"),"170"); h.set(qn("w:hRule"),"exact"); trPr.append(h); continue
             for i,v in enumerate(row):
                 cell(r.cells[i],str(v),align="center" if (i in center_cols or (i>0 and "(" in str(v)) or i>0) else "left"); r.cells[i].width=Cm(widths_cm[i])
         for k,(r,is_h) in enumerate(made):
             nxt_is_h = k+1<len(made) and made[k+1][1]
             if k+1<len(made) and not nxt_is_h: keepnext(r)
+        fp=None
         if footnote:
             if last is not None: keepnext(last)
             fp=self.para(footnote,sz=12,double=True,before=4,after=0); fp.paragraph_format.keep_together=True
             fp.paragraph_format.line_spacing_rule=WD_LINE_SPACING.EXACTLY; fp.paragraph_format.line_spacing=Pt(22)
+        if not hasattr(self,"tblinfo"): self.tblinfo=[]
+        self.tblinfo.append(dict(title=tp,footnote=fp,table=tbl,ncol=ncol,fs=fs))
     def no_black_squares(self):
         """Remove keep-with-next, keep-lines and page-break-before flags."""
         body=self.doc.element.body

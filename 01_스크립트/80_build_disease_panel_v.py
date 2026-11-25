@@ -4,7 +4,7 @@ import sys, os, json, unicodedata
 import numpy as np, pandas as pd
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from _st_config import load_config, ROOT, NFC, SUF
-SHP = os.environ.get("ST_SHP", "final.shp")
+SHP = os.environ.get("ST_SHP", "data/boundary/final.shp")
 TAG = sys.argv[1]; OUT = os.path.join(ROOT, "04_분석", TAG)
 C = load_config(TAG); RU = C["rules"]; Y0, Y1 = RU["years"]
 FORCED, CAND, NEG, V = C["forced"], C["candidates"], C["negative_controls"], C["vars"]

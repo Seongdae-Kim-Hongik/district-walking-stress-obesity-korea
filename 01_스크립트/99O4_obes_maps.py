@@ -7,7 +7,7 @@ matplotlib.use("Agg"); import matplotlib.pyplot as plt
 from matplotlib.colors import TwoSlopeNorm
 NFC = lambda s: unicodedata.normalize("NFC", str(s))
 ROOT = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")); AN = os.path.join(ROOT, "04_분석"); RES = os.path.join(AN, "OBES", "results_std3")
-SHP = os.environ.get("ST_SHP", "final.shp")
+SHP = os.environ.get("ST_SHP", "data/boundary/final.shp")
 OUTD = os.path.join(AN, "OBES", "figs"); os.makedirs(OUTD, exist_ok=True)
 PANEL_LABEL_PT = 60; plt.rcParams.update({"font.family": "Arial", "font.size": 16})
 G = gpd.read_file(SHP); G["region"] = G.region.map(NFC)

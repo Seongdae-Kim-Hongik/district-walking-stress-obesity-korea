@@ -1,5 +1,5 @@
-# Cell-by-cell comparison of the first-release panel (input_v1/) with the district-year SQLite for every variable (read-only, no fits).
-# Environment: ST_SQLITE (district-year SQLite, read-only), PANEL_WORKDIR (work folder with input_v1/, src_data/, tables/, out/, gate/; default current folder).
+# Cell-by-cell comparison of the first-release panel (input_first/) with the district-year SQLite for every variable (read-only, no fits).
+# Environment: ST_SQLITE (district-year SQLite, read-only), PANEL_WORKDIR (work folder with input_first/, src_data/, tables/, out/, gate/; default current folder).
 import sqlite3, json, os, sys, hashlib, unicodedata
 import numpy as np, pandas as pd
 B = os.environ.get("PANEL_WORKDIR", os.getcwd())
@@ -8,9 +8,9 @@ NFC = lambda s: unicodedata.normalize("NFC", s) if isinstance(s, str) else s
 sha = lambda p: hashlib.sha256(open(p, "rb").read()).hexdigest()
 h0 = sha(DB)
 c = sqlite3.connect(f"file:{DB}?mode=ro", uri=True)
-cfg = json.load(open(os.path.join(B, "input_v1/config_OBES_std3.json")))
+cfg = json.load(open(os.path.join(B, "input_first/config_OBES_std3.json")))
 V = cfg["vars"]
-P = pd.read_csv(os.path.join(B, "input_v1/panel_OBES_std3.csv"), encoding="utf-8-sig")
+P = pd.read_csv(os.path.join(B, "input_first/panel_OBES_std3.csv"), encoding="utf-8-sig")
 for col in ["key", "fbd_region", "sido_std", "sigungu"]: P[col] = P[col].map(NFC)
 src_cols = sorted({v["column"] for v in V.values() if not v["column"].startswith("ext__")} | {"kchs__DT_H_OBE_OBE__SR", "kchs__DT_H_OBE_OBE__SR_SE", "kchs__DT_H_OBE_OBE__N", "kchs__DT_H_OBE_OBE__CR", "kchs__DT_H_OBE_OBE__CR_SE"})
 q = ",".join(['year', 'key', 'fbd_region', 'sigungu_cd', 'population', 'boundary_flag'] + [f'"{s}"' for s in src_cols])
@@ -28,14 +28,14 @@ def cmp(name, a, b, note):
     both = a.notna() & b.notna(); d = (a - b).abs()
     rel = (d / b.abs().where(b.abs() > 0)).where(both)
     ndiff = int(((d > 1e-6 * np.maximum(1, b.abs())) & both).sum())
-    rows.append(dict(variable=name, n_cells=len(a), n_both=int(both.sum()), n_v1_only=int((a.notna() & b.isna()).sum()), n_db_only=int((a.isna() & b.notna()).sum()),
+    rows.append(dict(variable=name, n_cells=len(a), n_both=int(both.sum()), n_panel_only=int((a.notna() & b.isna()).sum()), n_db_only=int((a.isna() & b.notna()).sum()),
                      n_diff=ndiff, max_abs_diff=float(d[both].max()) if both.any() else np.nan, max_rel_diff=float(rel.max()) if both.any() else np.nan, note=note))
     return d.where(both)
 DIFF = []
 def keep_diff(name, a, b, d):
     m = d > 1e-6 * np.maximum(1, pd.to_numeric(b, errors="coerce").abs())
     for i in np.where(m.fillna(False))[0]:
-        DIFF.append(dict(variable=name, year=int(M.year.iat[i]), sigungu_cd=M.sigungu_cd.iat[i], fbd_region=M.fbd_region.iat[i], v1=float(a.iat[i]), sqlite=float(b.iat[i])))
+        DIFF.append(dict(variable=name, year=int(M.year.iat[i]), sigungu_cd=M.sigungu_cd.iat[i], fbd_region=M.fbd_region.iat[i], panel=float(a.iat[i]), sqlite=float(b.iat[i])))
 for nm, a, b, note in [("population", M.population, M.population_db, "region_year.population(창원 2023 교정 반영 여부)"),
                        ("cases=kchs__DT_H_OBE_OBE__SR", M.cases, M["kchs__DT_H_OBE_OBE__SR"], "결과 SR")]:
     d = cmp(nm, a, b, note); keep_diff(nm, a, b, d)
@@ -54,9 +54,9 @@ def transform(raw, tr, pop):
 for k, v in V.items():
     if v["column"].startswith("ext__"): continue
     x = transform(M[v["column"]].astype(float), v["transform"], M.population.astype(float))
-    d = cmp(f"{k}_raw", M[k + "_raw"], x, f"{v['column']} ({v['transform']}); SQLite 결측 칸 = v1 대치 칸")
+    d = cmp(f"{k}_raw", M[k + "_raw"], x, f"{v['column']} ({v['transform']}); SQLite 결측 칸 = 첫 패널 대치 칸")
     keep_diff(f"{k}_raw", M[k + "_raw"], x, d)
-X = pd.read_csv(os.path.join(B, "src_data/EXT_canonical_pool_OBES_261111.csv"), encoding="utf-8-sig"); X["fbd_region"] = X.fbd_region.map(NFC); X = X.rename(columns={c_: "x_" + c_ for c_ in X.columns if c_ not in ("year", "fbd_region")})
+X = pd.read_csv(os.path.join(B, "src_data/EXT_canonical_pool_OBES.csv"), encoding="utf-8-sig"); X["fbd_region"] = X.fbd_region.map(NFC); X = X.rename(columns={c_: "x_" + c_ for c_ in X.columns if c_ not in ("year", "fbd_region")})
 H = pd.read_csv(os.path.join(B, "src_data/HTN_Estd2.csv"), encoding="utf-8-sig"); H["fbd_region"] = H.fbd_region.map(NFC)
 MX = M.merge(X, on=["year", "fbd_region"], how="left", validate="one_to_one").merge(H[["year", "fbd_region", "pop80_share_raw", "pop65_share_raw"]].rename(columns={"pop80_share_raw": "h80", "pop65_share_raw": "h65"}), on=["year", "fbd_region"], how="left", validate="one_to_one")
 def dp(tag, col):

@@ -45,7 +45,7 @@ def load_config(TAG):
     if TAG != "METS" and "S1_narrative_full" in sets and OBES not in sets["S1_narrative_full"]:
         sets["S1b_obesity_sensitivity"] = sets["S1_narrative_full"] + [OBES]; sens_sets.append("S1b_obesity_sensitivity")
         if not any(OBES in vs for k, vs in sets.items() if k not in sens_sets): sens_only.append(OBES)
-    for _v in (S.get("sensitivity_only_extra") or []):   # 2026-11-06: sets json "sensitivity_only_extra" = 주모형 밖 민감도 전용 변수(예 관외진료 비율, 88k review access)
+    for _v in (S.get("sensitivity_only_extra") or []):
         if NFC(_v) not in sens_only: sens_only.append(NFC(_v))
     cand = []
     for sn, vs in sets.items():
@@ -100,7 +100,7 @@ def load_config(TAG):
                forced=[K(v) for v in forced], candidates=[K(v) for v in cand], negative_controls=[K(v) for v in neg], sets={k: [K(v) for v in vs] for k, vs in sets.items()},
                sensitivity_sets=sens_sets, sensitivity_only_vars=[K(v) for v in sens_only],
                offset_column=off, offset_sensitivity=off_sens, offset_fallback=off_fallback, exclude_years=excl,
-               vars={v["key"]: dict(v, raw_key=raw) for raw, v in vars_.items()}, rules=rules, note=S.get("note", "") or S.get("outcome_note", ""), fixed_on=S.get("fixed_on", "") or S.get("fixed_before_results", ""), source_json=f"sets_{TAG}{SUF}.json", version=VER or "v1", suffix=SUF,
+               vars={v["key"]: dict(v, raw_key=raw) for raw, v in vars_.items()}, rules=rules, note=S.get("note", "") or S.get("outcome_note", ""), fixed_on=S.get("fixed_on", "") or S.get("fixed_before_results", ""), source_json=f"sets_{TAG}{SUF}.json", version=VER or "default", suffix=SUF,
                offset_E_column=S.get("offset_E_column"), offset_E_file=S.get("offset_E_file"), offset_E_sensitivity_column=S.get("offset_E_sensitivity_column"), offset_E_label=S.get("offset_E_label"))
     return cfg
 if __name__ == "__main__":

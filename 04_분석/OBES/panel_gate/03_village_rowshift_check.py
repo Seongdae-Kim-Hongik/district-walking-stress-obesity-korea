@@ -1,5 +1,5 @@
 # Village sports facilities: flagged cells checked for row shifts or duplicated rows in the source tables by fingerprint (count, area).
-# Environment: ST_SQLITE (district-year SQLite, read-only), PANEL_WORKDIR (work folder with input_v1/, src_data/, tables/, out/, gate/; default current folder).
+# Environment: ST_SQLITE (district-year SQLite, read-only), PANEL_WORKDIR (work folder with input_first/, src_data/, tables/, out/, gate/; default current folder).
 import sqlite3, os, unicodedata
 import pandas as pd, numpy as np
 B = os.environ.get("PANEL_WORKDIR", os.getcwd())

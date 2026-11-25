@@ -3,7 +3,7 @@
 import os, json, shutil
 import numpy as np, matplotlib
 matplotlib.use("Agg"); import matplotlib.pyplot as plt
-import content_obes as C
+import figs_common as C
 HERE = os.path.dirname(os.path.abspath(__file__)); OUT = os.path.join(os.path.dirname(HERE), "out", "Figures"); os.makedirs(OUT, exist_ok=True)
 AN = os.path.normpath(os.path.join(HERE, "..", "..")); N = C.N
 from PIL import Image

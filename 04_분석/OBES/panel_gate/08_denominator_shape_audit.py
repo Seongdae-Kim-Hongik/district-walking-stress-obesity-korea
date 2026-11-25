@@ -1,5 +1,5 @@
 # Denominator audit (population against KOSIS resident registration tables), boundary-file code, name and area check, 65+ end-fill counts. Also needs SIGUNGU_KEY_DIR and ST_SHP.
-# Environment: ST_SQLITE (district-year SQLite, read-only), PANEL_WORKDIR (work folder with input_v1/, src_data/, tables/, out/, gate/; default current folder).
+# Environment: ST_SQLITE (district-year SQLite, read-only), PANEL_WORKDIR (work folder with input_first/, src_data/, tables/, out/, gate/; default current folder).
 import os, sys, json, glob, unicodedata, sqlite3
 import numpy as np, pandas as pd
 B = os.environ.get("PANEL_WORKDIR", os.getcwd()); sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import sigungu_key as sk

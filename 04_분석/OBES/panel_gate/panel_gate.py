@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # Panel join gate (run after joining, before fitting): codes outside the 229 districts, duplicate district-years, missing or non-finite required cells, fill-like runs, year-to-year jumps, area check. Usage: python3 panel_gate.py panel.csv --name-col region --cols pop,E,cases --positive pop,E --years 2011-2024
-"""패널 결합 게이트 (2026-10-21): 결합을 끝낸 뒤, 모형 적합 전에 반드시 통과시킨다.
+"""패널 결합 게이트: 결합을 끝낸 뒤, 모형 적합 전에 반드시 통과시킨다.
 
 실패(멈춤)
   1. 229에 없는 코드, 이름을 코드로 못 바꾼 행

@@ -402,7 +402,7 @@
    "Turon H",
    "Oldmeadow C"
   ],
-  "title": "Which modifiable health risk behaviours are related? A systematic review of the clustering of Smoking, Nutrition, Alcohol and Physical activity ('SNAP') health risk factors",
+  "title": "Which modifiable health risk behaviours are related? A systematic review of the clustering of smoking, nutrition, alcohol and physical activity ('SNAP') health risk factors",
   "journal": "Prev Med",
   "year": 2015,
   "vol": "81",
@@ -689,9 +689,9 @@
   "type": "web",
   "authors": "Korea Disease Control and Prevention Agency",
   "title": "Korea Community Health Survey: district obesity prevalence (self-reported, table DT_H_OBE_OBE; measured, table DT_117075_MEA_OBE) and health behavior indicators, crude and standardized rates with standard errors, 2008-2025. Korean Statistical Information Service",
-  "url": "https://kosis.kr",
+  "url": "https://kosis.kr/statHtml/statHtml.do?orgId=177&tblId=DT_H_OBE_OBE",
   "year": 2026,
-  "accessed": "November 10, 2026"
+  "accessed": "November 25, 2026"
  },
  "web:mcst2026facilities": {
   "type": "web",
@@ -727,7 +727,7 @@
   "pages": "e2022024",
   "doi": "10.4178/epih.e2022024",
   "pmid": "35209710",
-  "verified": "PubMed efetch 2026-11-24"
+  "verified": "PubMed efetch 2026-11-24; key/PMID/DOI = refs/manifest/ALL_refs.csv"
  },
  "gao2023spatial": {
   "type": "journal",
@@ -743,7 +743,7 @@
   "pages": "493-510",
   "doi": "10.1111/insr.12556",
   "pmid": "39469131",
-  "verified": "PubMed efetch 2026-11-24"
+  "verified": "PubMed efetch 2026-11-24; key/PMID/DOI = refs/manifest/ALL_refs.csv"
  },
  "kim2023comparison": {
   "type": "journal",
@@ -760,7 +760,7 @@
   "pages": "1396-1405",
   "doi": "10.1093/aje/kwad073",
   "pmid": "36963380",
-  "verified": "PubMed efetch 2026-11-24"
+  "verified": "PubMed efetch 2026-11-24; key/PMID/DOI = refs/manifest/ALL_refs.csv"
  },
  "khan2022restricted": {
   "type": "journal",
@@ -776,7 +776,7 @@
   "pages": "482-494",
   "doi": "10.1080/01621459.2020.1788949",
   "pmid": "36210885",
-  "verified": "PubMed efetch 2026-11-24"
+  "verified": "PubMed efetch 2026-11-24; key/PMID/DOI = refs/manifest/ALL_refs.csv"
  },
  "steptoe2023obesity": {
   "type": "journal",
@@ -792,7 +792,7 @@
   "pages": "20220225",
   "doi": "10.1098/rstb.2022.0225",
   "pmid": "37661745",
-  "verified": "PubMed efetch 2026-11-24"
+  "verified": "PubMed efetch 2026-11-24; key/PMID/DOI = refs/manifest/ALL_refs.csv"
  },
  "tomiyama2019stress": {
   "type": "journal",
@@ -807,7 +807,7 @@
   "pages": "703-718",
   "doi": "10.1146/annurev-psych-010418-102936",
   "pmid": "29927688",
-  "verified": "PubMed efetch 2026-11-24"
+  "verified": "PubMed efetch 2026-11-24; key/PMID/DOI = refs/manifest/ALL_refs.csv"
  },
  "kivimaki2015job": {
   "type": "journal",
@@ -826,7 +826,7 @@
   "pages": "1597-1600",
   "doi": "10.1038/ijo.2015.103",
   "pmid": "26041697",
-  "verified": "PubMed efetch 2026-11-24"
+  "verified": "PubMed efetch 2026-11-24; key/PMID/DOI = refs/manifest/ALL_refs.csv"
  },
  "golzarand2022association": {
   "type": "journal",
@@ -843,7 +843,7 @@
   "pages": "8078-8098",
   "doi": "10.1080/10408398.2021.1925221",
   "pmid": "33998940",
-  "verified": "PubMed efetch 2026-11-24"
+  "verified": "PubMed efetch 2026-11-24; key/PMID/DOI = refs/manifest/ALL_refs.csv"
  },
  "park2017relationship": {
   "type": "journal",
@@ -860,7 +860,7 @@
   "pages": "2192-2200",
   "doi": "10.1017/S1368980017001045",
   "pmid": "28641594",
-  "verified": "PubMed efetch 2026-11-24"
+  "verified": "PubMed efetch 2026-11-24; key/PMID/DOI = refs/manifest/ALL_refs.csv"
  },
  "carrerastorres2018role": {
   "type": "journal",
@@ -881,7 +881,7 @@
   "pages": "k1767",
   "doi": "10.1136/bmj.k1767",
   "pmid": "29769355",
-  "verified": "PubMed efetch 2026-11-24"
+  "verified": "PubMed efetch 2026-11-24; key/PMID/DOI = refs/manifest/ALL_refs.csv"
  },
  "taylor2019effect": {
   "type": "journal",
@@ -904,7 +904,7 @@
   "pages": "1322-1330",
   "doi": "10.1093/hmg/ddy434",
   "pmid": "30561638",
-  "verified": "PubMed efetch 2026-11-24"
+  "verified": "PubMed efetch 2026-11-24; key/PMID/DOI = refs/manifest/ALL_refs.csv"
  },
  "chiolero2008consequences": {
   "type": "journal",
@@ -922,7 +922,7 @@
   "pages": "801-809",
   "doi": "10.1093/ajcn/87.4.801",
   "pmid": "18400700",
-  "verified": "PubMed efetch 2026-11-24"
+  "verified": "PubMed efetch 2026-11-24; key/PMID/DOI = refs/manifest/ALL_refs.csv"
  },
  "chung2017gender": {
   "type": "journal",
@@ -941,7 +941,7 @@
   "pages": "e014276",
   "doi": "10.1136/bmjopen-2016-014276",
   "pmid": "29288171",
-  "verified": "PubMed efetch 2026-11-24"
+  "verified": "PubMed efetch 2026-11-24; key/PMID/DOI = refs/manifest/ALL_refs.csv"
  },
  "jun2018gender": {
   "type": "journal",
@@ -957,7 +957,7 @@
   "pages": "311",
   "doi": "10.3390/ijerph15020311",
   "pmid": "29439430",
-  "verified": "PubMed efetch 2026-11-24"
+  "verified": "PubMed efetch 2026-11-24; key/PMID/DOI = refs/manifest/ALL_refs.csv"
  },
  "reich2006effects": {
   "type": "journal",
@@ -974,7 +974,7 @@
   "pages": "1197-1206",
   "doi": "10.1111/j.1541-0420.2006.00617.x",
   "pmid": "17156295",
-  "verified": "PubMed efetch 2026-11-24"
+  "verified": "PubMed efetch 2026-11-24; key/PMID/DOI = refs/manifest/ALL_refs.csv"
  },
  "han2018spatial": {
   "type": "journal",
@@ -991,7 +991,7 @@
   "pages": "542",
   "doi": "10.4081/gh.2018.542",
   "pmid": "29772876",
-  "verified": "PubMed efetch 2026-11-24"
+  "verified": "PubMed efetch 2026-11-24; key/PMID/DOI = refs/manifest/ALL_refs.csv"
  },
  "yun2026spatial": {
   "type": "journal",
@@ -1010,6 +1010,14 @@
   "pages": "1857479",
   "doi": "10.3389/fpubh.2026.1857479",
   "pmid": "42558617",
-  "verified": "PubMed efetch 2026-11-24"
+  "verified": "PubMed efetch 2026-11-24; key/PMID/DOI = refs/manifest/ALL_refs.csv"
+ },
+ "web:rcore2025": {
+  "type": "web",
+  "authors": "R Core Team",
+  "title": "R: a language and environment for statistical computing. Version 4.6.0. R Foundation for Statistical Computing, Vienna, Austria",
+  "url": "https://www.R-project.org/",
+  "year": 2026,
+  "accessed": "November 25, 2026"
  }
 }

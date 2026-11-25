@@ -4,7 +4,7 @@ import os, unicodedata
 import numpy as np, pandas as pd
 NFC = lambda s: unicodedata.normalize("NFC", str(s))
 HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.normpath(os.path.join(HERE, ".."))
-ZD = os.environ.get("ST_CANON", os.path.join(os.path.expandvars("$ST_DATA_ROOT"), "기타/R_Studio/FBD_DATA_ZIP/통합자료_261030"))
+ZD = os.environ.get("ST_CANON", os.path.join(os.path.expandvars("$ST_DATA_ROOT"), "기타/R_Studio/FBD_DATA_ZIP/통합자료"))
 PAN = os.path.join(ROOT, "02_패널")
 C = pd.read_csv(os.path.join(ZD, "01_공변량_229x2011_2024.csv"), encoding="utf-8-sig", dtype={"sigungu_cd": str})
 K = pd.read_csv(os.path.join(ZD, "00_시군구_229_대응표.csv"), encoding="utf-8-sig", dtype={"sigungu_cd": str}); assert K.sigungu_cd.is_unique and len(K) == 229
@@ -35,5 +35,5 @@ _r = out.loc[yy, "basic_livelihood_rate"] / out.loc[yy, "fbd_region"].map(ref); 
 cw = out[(out.fbd_region == NFC("경상남도창원시")) & yy].basic_livelihood_rate; assert cw.between(2.3, 2.4).all(), cw.tolist(); print("[99c-obes] 창원 2021-23 정정값", cw.round(3).tolist())
 assert out.groupby("fbd_region").year.nunique().eq(14).all() and out.fbd_region.nunique() == 229 and not out.duplicated(["year", "fbd_region"]).any()
 assert out.notna().all().all(), out.isna().sum()
-fp = os.path.join(PAN, "EXT_canonical_pool_OBES_261111.csv"); out.to_csv(fp, index=False, encoding="utf-8-sig")
+fp = os.path.join(PAN, "EXT_canonical_pool_OBES.csv"); out.to_csv(fp, index=False, encoding="utf-8-sig")
 print(f"[99c-obes] 저장 {fp} {out.shape}"); print(out.describe().T[["min", "50%", "max"]].round(2))

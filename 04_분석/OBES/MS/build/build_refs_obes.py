@@ -1,15 +1,15 @@
-# Reference metadata from PubMed and Crossref.
+# Reference metadata from PubMed and Crossref (writes refs_obes.json; network access needed).
 import os, re, json, time, urllib.request, urllib.parse, glob
 import pandas as pd
 HERE = os.path.dirname(os.path.abspath(__file__)); MS = os.path.dirname(HERE)
 man = pd.read_csv(os.path.join(MS, "refs", "manifest", "ALL_refs.csv"), dtype=str).fillna("")
 man["pmid"] = man.pmid.str.replace(r"\.0$", "", regex=True); M = man.set_index("key")
-src = open(os.path.join(HERE, "content_obes.py"), encoding="utf-8").read()
+src = open(os.environ["REFS_SOURCE"], encoding="utf-8").read()
 src = re.sub(r"<!--.*?-->", "", src, flags=re.S); src = re.sub(r"(?m)^\s*#.*$", "", src)
 keys = sorted({k.strip().lstrip("@") for g in re.findall(r"\[(@[^\]]+)\]", src) for k in g.split(";")})
 keys = [k for k in keys if re.fullmatch(r"(web:)?[a-z][a-z0-9]*", k)]
 WEB = {
- "web:kdca2026kchs": dict(type="web", authors="Korea Disease Control and Prevention Agency", title="Korea Community Health Survey: district obesity prevalence (self-reported, table DT_H_OBE_OBE; measured, table DT_117075_MEA_OBE) and health behavior indicators, crude and standardized rates with standard errors, 2008-2025. Korean Statistical Information Service", url="https://kosis.kr", year=2026, accessed="November 10, 2026"),
+ "web:kdca2026kchs": dict(type="web", authors="Korea Disease Control and Prevention Agency", title="Korea Community Health Survey: district obesity prevalence (self-reported, table DT_H_OBE_OBE; measured, table DT_117075_MEA_OBE) and health behavior indicators, crude and standardized rates with standard errors, 2008-2025. Korean Statistical Information Service", url="https://kosis.kr/statHtml/statHtml.do?orgId=177&tblId=DT_H_OBE_OBE", year=2026, accessed="November 25, 2026"),
  "web:mois2026licence": dict(type="web", authors="Ministry of the Interior and Safety", title="Local administrative licensing data: general restaurants and instant food manufacturing and processing businesses, 2011-2024. Public Data Portal", url="https://www.data.go.kr", year=2026, accessed="October 20, 2026"),
  "web:mcst2026facilities": dict(type="web", authors="Ministry of Culture, Sports and Tourism", title="National public sports facility status, 2007-2024", url="https://www.mcst.go.kr", year=2026, accessed="October 18, 2026"),
 }

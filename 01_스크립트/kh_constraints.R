@@ -78,7 +78,7 @@ kh_fit_repaired <- function(type, d, vars) {
   assign("KHQ",INLA::inla.as.sparse(z$Q),envir=.GlobalEnv)
   assign("KHC",list(A=z$A,e=rep(0,z$rankdef)),envir=.GlobalEnv)
   ex <- sprintf(paste0("f(st,model='generic0',Cmatrix=KHQ,rankdef=%d,",
-    "constr=FALSE,extraconstr=KHC,hyper=pcp,values=1:%d)"),z$rankdef,n*z$Tn)
+    "constr=FALSE,extraconstr=KHC,hyper=PRI_IID,values=1:%d)"),z$rankdef,n*z$Tn)
   LOG("KH %s repaired: n=%d T=%d components=%d rank=%d rankdef=%d",
       type,n,z$Tn,z$components$n,z$rank,z$rankdef)
   safe(vars,data=d,extra=ex,env=.GlobalEnv)

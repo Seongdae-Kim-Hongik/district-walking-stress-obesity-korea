@@ -1,5 +1,6 @@
-# Reads result tables and computes every reported number (half-up rounding).
-# Environment: OBES_RES (result folder, default 04_분석/OBES/results_std3), OBES_FO (survey outcomes), OBES_META (panel variable summary).
+# Reads the main-chain result tables and writes numbers_obes.json (half-up rounding): main model, windows, lags, between/within, measured obesity, sensitivity summaries.
+# Numbers of the additional analyses (extra/, extra2/) are read by the figure scripts directly from the tables those scripts write.
+# Environment: OBES_RES (result folder, default 04_분석/OBES/results_std3), OBES_FO (survey outcomes), OBES_META (panel variable summary), OBES_NUMBERS_OUT (output file name).
 import os, json, unicodedata
 from decimal import Decimal as _D, ROUND_HALF_UP as _RHU
 import builtins as _bi
@@ -39,8 +40,8 @@ m = rd("S3_main_OR.csv").set_index("cov"); N["main"] = {k: dict(OR=r.OR, lo=r.lo
 mv = rd("S7_multiverse_summary.csv").set_index("cov"); N["mv"] = {k: dict(cred=r.cred_frac, sign=r.sign_agree, robust=bool(r.robust)) for k, r in mv.iterrows()}
 kh = rd("S8_KH.csv"); N["kh"] = {f"{r.model}|{r['cov']}": dict(OR=r.OR, lo=r.lo, hi=r.hi, cred=bool(r.cred)) for _, r in kh.iterrows()}
 ROB = [k for k in mv.index if mv.loc[k, "robust"] and kh[(kh["cov"] == k) & kh.model.isin(["KH_II", "KH_IV"])].cred.all()]
-ROB_V1 = {"walking_practice_rate", "ext__restaurant_per10k", "high_risk_drinking_rate_drinkers", "current_smoking_rate", "perceived_stress_rate", "tertiary_educated_share"}
-N["robust_v1"] = sorted(ROB_V1); N["robust_same_as_v1"] = set(ROB) == ROB_V1
+ROB_FIRST = {"walking_practice_rate", "ext__restaurant_per10k", "high_risk_drinking_rate_drinkers", "current_smoking_rate", "perceived_stress_rate", "tertiary_educated_share"}
+N["robust_first_panel"] = sorted(ROB_FIRST); N["robust_same_as_first_panel"] = set(ROB) == ROB_FIRST
 N["robust"] = ROB
 bw = rd("S9_between_within.csv"); N["bw"] = {f"{r['cov']}|{r.component}": dict(OR=r.OR, lo=r.lo, hi=r.hi, cred=bool(r.cred)) for _, r in bw.iterrows()}
 nc = rd("S3_negcontrol.csv"); N["neg"] = {r["cov"]: dict(OR=r.OR, lo=r.lo, hi=r.hi, cred=bool(r.cred)) for _, r in nc.iterrows()}; assert not nc.cred.any()
@@ -63,5 +64,5 @@ so = rd("S14_selfreport2018_OR.csv"); N["self18_OR"] = {r["cov"]: dict(OR=r.OR, 
 META = pd.read_csv(os.environ.get("OBES_META", os.path.join(AN, "OBES", "panel_META_OBES_std3.csv")), encoding="utf-8-sig").set_index("variable")
 N["filled"] = {v: int(META.loc[v, "n_imputed_interp"] + META.loc[v, "n_imputed_sgg_mean"] + META.loc[v, "n_imputed_year_mean"]) for v in META.index}
 N["sr_mean_all"] = round(float(FO.SR.mean()), 1)
-json.dump(N, open(os.path.join(HERE, "numbers_obes.json"), "w"), ensure_ascii=False, indent=1, default=float)
+json.dump(N, open(os.path.join(HERE, os.environ.get("OBES_NUMBERS_OUT", "numbers_obes.json")), "w"), ensure_ascii=False, indent=1, default=float)
 print("robust", ROB); print({k: N[k] for k in ["n_resp_total", "n_resp_median", "sr_2011", "sr_2024", "p10", "p90", "moran", "persist", "kendallW", "phi_main", "n_hot", "n_cold", "vp", "vp_notime", "infl_n"]})

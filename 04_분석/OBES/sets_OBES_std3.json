@@ -131,19 +131,19 @@
    "pop80_share_raw"
   ],
   "ext__restaurant_per10k": [
-   "EXT_canonical_pool_OBES_261111.csv",
+   "EXT_canonical_pool_OBES.csv",
    "restaurant_per10k"
   ],
   "ext__instant_food_per10k": [
-   "EXT_canonical_pool_OBES_261111.csv",
+   "EXT_canonical_pool_OBES.csv",
    "instant_food_per10k"
   ],
   "ext__tertiary_educated_share": [
-   "EXT_canonical_pool_OBES_261111.csv",
+   "EXT_canonical_pool_OBES.csv",
    "tertiary_educated_share"
   ],
   "ext__basic_livelihood_rate": [
-   "EXT_canonical_pool_OBES_261111.csv",
+   "EXT_canonical_pool_OBES.csv",
    "basic_livelihood_rate"
   ]
  },

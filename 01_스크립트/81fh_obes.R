@@ -4,14 +4,14 @@
 suppressPackageStartupMessages({library(INLA);library(sf);library(spdep);library(jsonlite)})
 args<-commandArgs(trailingOnly=TRUE);TAG<-args[1];stopifnot(TAG=="OBES")
 ROOT<-normalizePath(file.path(dirname(sub("--file=","",grep("--file=",commandArgs(),value=TRUE))),".."))
-SHP<-Sys.getenv("ST_SHP","final.shp")
+SHP<-Sys.getenv("ST_SHP","data/boundary/final.shp")
 SUF<-"_std3";OUTD<-file.path(ROOT,"04_분석",TAG);RES<-Sys.getenv("ST_RES",unset=file.path(OUTD,"results_std3"));dir.create(RES,showWarnings=FALSE,recursive=TRUE)
 NT<-as.integer(Sys.getenv("ST_THREADS",unset="1"));inla.setOption(num.threads=sprintf("%d:1",NT))
 ONLY<-Sys.getenv("ST_FH_ONLY",unset="");RUN<-function(s)!nzchar(ONLY)||s%in%strsplit(ONLY,",")[[1]]
 S<-fromJSON(file.path(OUTD,sprintf("config_%s%s.json",TAG,SUF)),simplifyVector=TRUE);RU<-S$rules
 INFO<-fromJSON(file.path(OUTD,sprintf("panel_INFO_%s%s.json",TAG,SUF)))
 META<-read.csv(file.path(OUTD,sprintf("panel_META_%s%s.csv",TAG,SUF)),fileEncoding="UTF-8-BOM",stringsAsFactors=FALSE)
-LAB<-setNames(META$label_en,META$variable);for(k in names(c("eloc__dt_1yl20421e__1___1"=1,"ext__restaurant_per10k"=1,"ext__instant_food_per10k"=1)))LAB[k]<-c("eloc__dt_1yl20421e__1___1"="Green zone area per capita (log)","ext__restaurant_per10k"="General restaurants per 10,000 (log)","ext__instant_food_per10k"="Instant-food manufacturing-retail outlets per 10,000 (log)")[k]
+LAB<-setNames(META$label_en,META$variable);for(kk in names(c("eloc__dt_1yl20421e__1___1"=1,"ext__restaurant_per10k"=1,"ext__instant_food_per10k"=1)))LAB[kk]<-c("eloc__dt_1yl20421e__1___1"="Green zone area per capita (log)","ext__restaurant_per10k"="General restaurants per 10,000 (log)","ext__instant_food_per10k"="Instant-food manufacturing-retail outlets per 10,000 (log)")[kk]
 DD<-read.csv(file.path(OUTD,sprintf("panel_%s%s.csv",TAG,SUF)),fileEncoding="UTF-8-BOM",stringsAsFactors=FALSE);DD$fbd_region<-enc2utf8(DD$fbd_region)
 FO<-read.csv(file.path(ROOT,"02_패널","OBES_fh_outcomes.csv"),fileEncoding="UTF-8-BOM",stringsAsFactors=FALSE);FO$fbd_region<-enc2utf8(FO$fbd_region)
 DD<-merge(DD,FO[,c("year","fbd_region","SR","SR_SE","N","CR","CR_SE","y_logit","v_logit","y_logit_cr","v_logit_cr","n_eff","y_eff","meas_SR","meas_SE","y_logit_meas","v_logit_meas","report_gap")],by=c("year","fbd_region"),all.x=TRUE,sort=FALSE)
@@ -25,9 +25,9 @@ stopifnot(all(c(MAINV,NEG)%in%names(DD)))
 G<-st_read(SHP,quiet=TRUE);G$region<-enc2utf8(G$region);stopifnot(all(unique(DD$fbd_region)%in%G$region))
 nbq<-poly2nb(G,queen=TRUE);isl<-which(card(nbq)==0)
 if(length(isl)){cen<-st_coordinates(st_centroid(st_geometry(G)));kn<-knearneigh(cen,k=1)$nn
-  for(i in isl){j<-kn[i,1];nbq[[i]]<-sort(unique(c(nbq[[i]][nbq[[i]]>0],j)));nbq[[j]]<-sort(unique(c(nbq[[j]][nbq[[j]]>0],i)))}}
+  for(ii in isl){j<-kn[ii,1];nbq[[ii]]<-sort(unique(c(nbq[[ii]][nbq[[ii]]>0],j)));nbq[[j]]<-sort(unique(c(nbq[[j]][nbq[[j]]>0],ii)))}}
 nb<-nbq;GP<-Sys.getenv("ST_GRAPH");stopifnot(nzchar(GP))
-sg<-inla.read.graph(GP);stopifnot(sg$n==nrow(G));for(i in seq_len(sg$n))nb[[i]]<-as.integer(sort(sg$nbs[[i]]));attr(nb,"sym")<-TRUE
+sg<-inla.read.graph(GP);stopifnot(sg$n==nrow(G));for(ii in seq_len(sg$n))nb[[ii]]<-as.integer(sort(sg$nbs[[ii]]));attr(nb,"sym")<-TRUE
 GF<-file.path(tempdir(),sprintf("nb_%s_%d.graph",TAG,Sys.getpid()));nb2INLA(GF,nb);g<-inla.read.graph(GF);lw<-nb2listw(nb,style="W",zero.policy=TRUE)
 GFQ<-file.path(tempdir(),sprintf("nbqueen_%s_%d.graph",TAG,Sys.getpid()));nb2INLA(GFQ,nbq);gq<-inla.read.graph(GFQ)
 n<-nrow(G);mI<-function(x,alt="greater"){mm<-moran.mc(x,lw,999,zero.policy=TRUE,alternative=alt);c(I=unname(mm$statistic),p=mm$p.value,EI=-1/(length(x)-1))}
@@ -39,24 +39,24 @@ if(!file.exists(file.path(RES,"S0_graph_info.csv")))write.csv(GI,file.path(RES,"
 
 DD$area<-match(DD$fbd_region,G$region);DD<-DD[order(DD$year,DD$area),];Y0<-min(DD$year);DD$time<-DD$year-Y0+1;DD$yiid<-DD$time;DD$id<-seq_len(nrow(DD))
 DD$w<-1/DD$v_logit;DD$w_cr<-1/DD$v_logit_cr;DD$p<-DD$SR/100
-pc<-list(prec=list(prior="pc.prec",param=c(0.5,0.01)),phi=list(prior="pc",param=c(0.5,2/3)));pcp<-list(prec=list(prior="pc.prec",param=c(0.5,0.01)))
-CF<-list(mean=0,prec=4,mean.intercept=0,prec.intercept=0.001)
+PRI_BYM2<-list(prec=list(prior="pc.prec",param=c(0.5,0.01)),phi=list(prior="pc",param=c(0.5,2/3)));PRI_IID<-list(prec=list(prior="pc.prec",param=c(0.5,0.01)))
+PRI_FIX<-list(mean=0,prec=4,mean.intercept=0,prec.intercept=0.001)
 bt<-function(v)sprintf("`%s`",v)
-SPf<-function(gr="g",hp="pc")sprintf("f(area,model='bym2',graph=%s,scale.model=TRUE,constr=TRUE,hyper=%s)",gr,hp)
-TI<-"f(time,model='rw1',scale.model=TRUE,hyper=pcp)";IT<-"f(yiid,model='iid',hyper=pcp)";CELL<-"f(id,model='iid',hyper=pcp)"
+SPf<-function(gr="g",hp="PRI_BYM2")sprintf("f(area,model='bym2',graph=%s,scale.model=TRUE,constr=TRUE,hyper=%s)",gr,hp)
+TI<-"f(time,model='rw1',scale.model=TRUE,hyper=PRI_IID)";IT<-"f(yiid,model='iid',hyper=PRI_IID)";CELL<-"f(id,model='iid',hyper=PRI_IID)"
 FIXP<-list(hyper=list(prec=list(initial=0,fixed=TRUE)))
 fitfh<-function(vars,data=DD,lik="fh",extra=character(0),re=TRUE,cell=TRUE,cpo=TRUE,sp=SPf(),robust=FALSE,ti=NULL){
   yv<-switch(lik,fh="y_logit",gfree="y_logit",cr="y_logit_cr",meas="y_logit_meas",binom="y_eff",beta="p")
   usecell<-cell&&lik%in%c("fh","cr","meas","binom")
-  TIv<-sprintf("f(time,model='rw1',scale.model=TRUE,hyper=pcp,values=1:%d)",max(data$time));if(!is.null(ti))TIv<-sprintf(ti,max(data$time))
+  TIv<-sprintf("f(time,model='rw1',scale.model=TRUE,hyper=PRI_IID,values=1:%d)",max(data$time));if(!is.null(ti))TIv<-sprintf(ti,max(data$time))
   rhs<-c("1",bt(vars),extra,if(re)c(sp,TIv,IT),if(usecell)CELL);form<-as.formula(paste(yv,"~",paste(rhs,collapse="+")))
   ci<-if(isTRUE(robust)||identical(robust,"gaussian_eb"))list(control.vb=list(emergency=50),int.strategy="eb",strategy="gaussian") else if(identical(robust,"gaussian"))list(control.vb=list(emergency=50),strategy="gaussian") else list(control.vb=list(emergency=50))
   cc<-list(dic=TRUE,waic=TRUE,cpo=cpo,config=FALSE)
   if(lik%in%c("fh","cr","meas")){sc<-switch(lik,fh=data$w,cr=data$w_cr,meas=1/data$v_logit_meas)
-    return(inla(form,family="gaussian",data=data,scale=sc,control.family=FIXP,control.fixed=CF,control.compute=cc,control.inla=ci,verbose=FALSE))}
-  if(lik=="gfree")return(inla(form,family="gaussian",data=data,control.fixed=CF,control.compute=cc,control.inla=ci,verbose=FALSE))
-  if(lik=="binom")return(inla(form,family="binomial",Ntrials=data$n_eff,data=data,control.fixed=CF,control.compute=cc,control.inla=ci,verbose=FALSE))
-  if(lik=="beta")return(inla(form,family="beta",data=data,control.fixed=CF,control.compute=cc,control.inla=ci,verbose=FALSE))
+    return(inla(form,family="gaussian",data=data,scale=sc,control.family=FIXP,control.fixed=PRI_FIX,control.compute=cc,control.inla=ci,verbose=FALSE))}
+  if(lik=="gfree")return(inla(form,family="gaussian",data=data,control.fixed=PRI_FIX,control.compute=cc,control.inla=ci,verbose=FALSE))
+  if(lik=="binom")return(inla(form,family="binomial",Ntrials=data$n_eff,data=data,control.fixed=PRI_FIX,control.compute=cc,control.inla=ci,verbose=FALSE))
+  if(lik=="beta")return(inla(form,family="beta",data=data,control.fixed=PRI_FIX,control.compute=cc,control.inla=ci,verbose=FALSE))
   stop(lik)}
 FB<-new.env();FB$last<-"default";FB$log<-NULL
 safe<-function(...){for(st in c("default","default_retry","gaussian","gaussian_eb")){
@@ -124,7 +124,7 @@ if(RUN("S3")&&!all(file.exists(F3,F3f,F3n,F3s,F3v))){
   fs<-fstat(m);write.csv(data.frame(fs,n_obs=nrow(DD),n_regions=n,n_years=14,n_hotspot=sum(rr$class=="hotspot"),n_coldspot=sum(rr$class=="coldspot"),OR_min=min(rr$OR),OR_max=max(rr$OR),
     n_cred_hyp=sum(ir$cred[ir$role=="hypothesis"]),cred_hyp=paste(ir$cov[ir$cred&ir$role=="hypothesis"],collapse=";"),obs_moran_I=round(mo["I"],4),obs_moran_p=mo["p"],resid_moran_I=round(mr["I"],4),resid_moran_p=mr["p"],
     largest_hot=clusters(rr$area[rr$class=="hotspot"]),largest_cold=clusters(rr$area[rr$class=="coldspot"])),F3f,row.names=FALSE)
-  nc<-NULL;for(v in NEG){mm<-timed(sprintf("S3 negctrl %s",v),safe(c(MAINV,v)));if(is.null(mm))next;r<-orr(mm,v);r$label_en<-LAB[v];r$WAIC<-round(mm$waic$waic,1);nc<-rbind(nc,r)};write.csv(nc,F3n,row.names=FALSE)
+  nc<-NULL;for(cvar in NEG){mm<-timed(sprintf("S3 negctrl %s",cvar),safe(c(MAINV,cvar)));if(is.null(mm))next;r<-orr(mm,cvar);r$label_en<-LAB[cvar];r$WAIC<-round(mm$waic$waic,1);nc<-rbind(nc,r)};write.csv(nc,F3n,row.names=FALSE)
   LOG("S3: cred hyp = %s; hot %d cold %d; resid Moran %.3f",paste(ir$cov[ir$cred&ir$role=="hypothesis"],collapse=","),sum(rr$class=="hotspot"),sum(rr$class=="coldspot"),mr["I"]);rm(m,mf)}
 
 F4<-file.path(RES,"S4_window_OR.csv");F4i<-file.path(RES,"S4_interaction.csv")
@@ -133,12 +133,12 @@ if(RUN("S4")&&!all(file.exists(F4,F4i))){wr<-NULL
     m<-timed(sprintf("S4 %s",wn),safe(MAINV,data=d));if(is.null(m))next;wr<-rbind(wr,tab(m,MAINV,list(window=wn,WAIC=round(m$waic$waic,1))))}
   write.csv(wr,F4,row.names=FALSE)
   d<-DD;wl<-names(WIN);d$W<-factor(d$window,levels=wl);ex<-character(0)
-  for(k in 2:length(wl)){dn<-sprintf("W%d",k);d[[dn]]<-as.integer(d$W==wl[k]);ex<-c(ex,dn);for(v in HYPV){nm<-sprintf("%s_x_W%d",v,k);d[[nm]]<-d[[v]]*d[[dn]];ex<-c(ex,bt(nm))}}
-  m<-timed("S4 interaction",safe(MAINV,data=d,extra=ex));ir<-NULL;for(k in 2:length(wl))for(v in HYPV){r<-orr(m,sprintf("%s_x_W%d",v,k));r$cov<-v;r$window<-wl[k];ir<-rbind(ir,r)};write.csv(ir,F4i,row.names=FALSE);rm(m)}
+  for(kk in 2:length(wl)){dn<-sprintf("W%d",kk);d[[dn]]<-as.integer(d$W==wl[kk]);ex<-c(ex,dn);for(cvar in HYPV){nm<-sprintf("%s_x_W%d",cvar,kk);d[[nm]]<-d[[cvar]]*d[[dn]];ex<-c(ex,bt(nm))}}
+  m<-timed("S4 interaction",safe(MAINV,data=d,extra=ex));ir<-NULL;for(kk in 2:length(wl))for(cvar in HYPV){r<-orr(m,sprintf("%s_x_W%d",cvar,kk));r$cov<-cvar;r$window<-wl[kk];ir<-rbind(ir,r)};write.csv(ir,F4i,row.names=FALSE);rm(m)}
 
 F5<-file.path(RES,"S5_covid.csv")
-if(RUN("S5")&&!file.exists(F5)){d<-DD;ex<-"post";for(v in HYPV){nm<-sprintf("%s_x_post",v);d[[nm]]<-d[[v]]*d$post;ex<-c(ex,bt(nm))}
-  m<-timed("S5 covid",safe(MAINV,data=d,extra=ex));out<-NULL;for(v in HYPV){r<-orr(m,sprintf("%s_x_post",v));r$cov<-v;r$term<-"var_x_post";out<-rbind(out,r)};write.csv(out,F5,row.names=FALSE);rm(m)}
+if(RUN("S5")&&!file.exists(F5)){d<-DD;ex<-"post";for(cvar in HYPV){nm<-sprintf("%s_x_post",cvar);d[[nm]]<-d[[cvar]]*d$post;ex<-c(ex,bt(nm))}
+  m<-timed("S5 covid",safe(MAINV,data=d,extra=ex));out<-NULL;for(cvar in HYPV){r<-orr(m,sprintf("%s_x_post",cvar));r$cov<-cvar;r$term<-"var_x_post";out<-rbind(out,r)};write.csv(out,F5,row.names=FALSE);rm(m)}
 
 F6<-file.path(RES,"S6_moran_year.csv")
 if(RUN("S6")&&!file.exists(F6)){set.seed(2);my<-do.call(rbind,lapply(sort(unique(DD$year)),function(y){d<-DD[DD$year==y,];x<-d$y_logit[order(d$area)];mm<-mI(x)
@@ -165,11 +165,11 @@ if(RUN("S7")&&!file.exists(F7)){set.seed(20261110);POOL<-CAND
   PARTS<-list.files(RES,pattern="^S7_multiverse_results_part_.*\\.csv$",full.names=TRUE)
   if(is.null(SPSEL)&&!file.exists(F7r)&&length(PARTS)){write.csv(do.call(rbind,lapply(PARTS,read.csv,stringsAsFactors=FALSE)),F7r,row.names=FALSE)}
   sp<-read.csv(F7s,stringsAsFactors=FALSE);mv<-if(file.exists(F7r))read.csv(F7r,stringsAsFactors=FALSE) else NULL
-  for(i in sp$spec){if(!is.null(SPSEL)&&!(i%in%SPSEL))next;if(!is.null(mv)&&i%in%mv$spec)next;vv<-strsplit(sp$vars[sp$spec==i],"\\|")[[1]]
-    set.seed(20261019+i);inla.setOption(inla.timeout=600);t0_<-Sys.time();m<-safe(c(vv,FORCED),cpo=FALSE);inla.setOption(inla.timeout=0)
-    SPLOG<<-rbind(SPLOG,data.frame(spec=i,nvar=length(vv),seconds=round(as.numeric(difftime(Sys.time(),t0_,units="secs")),1),status=if(is.null(m))"failed" else "ok",fit_setting=FB$last,seed=20261019+i));write.csv(SPLOG,F7l,row.names=FALSE)
+  for(ii in sp$spec){if(!is.null(SPSEL)&&!(ii%in%SPSEL))next;if(!is.null(mv)&&ii%in%mv$spec)next;vv<-strsplit(sp$vars[sp$spec==ii],"\\|")[[1]]
+    set.seed(20261019+ii);inla.setOption(inla.timeout=600);t0_<-Sys.time();m<-safe(c(vv,FORCED),cpo=FALSE);inla.setOption(inla.timeout=0)
+    SPLOG<<-rbind(SPLOG,data.frame(spec=ii,nvar=length(vv),seconds=round(as.numeric(difftime(Sys.time(),t0_,units="secs")),1),status=if(is.null(m))"failed" else "ok",fit_setting=FB$last,seed=20261019+ii));write.csv(SPLOG,F7l,row.names=FALSE)
     if(is.null(m))next
-    r<-do.call(rbind,lapply(vv,function(v)orr(m,v)));r$spec<-i;mv<-rbind(mv,r);if(i%%10==0){write.csv(mv,F7r,row.names=FALSE);LOG("S7 %d",i)}}
+    r<-do.call(rbind,lapply(vv,function(v)orr(m,v)));r$spec<-ii;mv<-rbind(mv,r);if(ii%%10==0){write.csv(mv,F7r,row.names=FALSE);LOG("S7 %d",ii)}}
   write.csv(mv,F7r,row.names=FALSE);if(!is.null(SPSEL))quit(save="no")
   main<-read.csv(F3,stringsAsFactors=FALSE);sgn<-setNames(sign(log(main$OR)),main$cov)
   sm<-do.call(rbind,lapply(POOL,function(v){x<-mv[mv$cov==v,];ref<-sgn[v];data.frame(cov=v,label_en=LAB[v],n_specs=nrow(x),cred_frac=round(mean(x$cred),3),sign_agree=round(mean(sign(log(x$OR))==ref),3),
@@ -181,20 +181,20 @@ F8<-file.path(RES,"S8_KH.csv")
 if(RUN("S8")&&!file.exists(F8)){source(file.path(ROOT,"01_스크립트","kh_constraints.R"));out<-NULL
   for(ty in c("II","III","IV")){z<-kh_matrices(ty,g,14);d<-DD;d$st<-(d$time-1L)*n+d$area;stopifnot(!anyDuplicated(d$st),max(d$st)<=n*14)
     assign("KHQ",INLA::inla.as.sparse(z$Q),envir=.GlobalEnv);assign("KHC",list(A=z$A,e=rep(0,z$rankdef)),envir=.GlobalEnv)
-    ex<-sprintf("f(st,model='generic0',Cmatrix=KHQ,rankdef=%d,constr=FALSE,extraconstr=KHC,hyper=pcp,values=1:%d)",z$rankdef,n*14)
+    ex<-sprintf("f(st,model='generic0',Cmatrix=KHQ,rankdef=%d,constr=FALSE,extraconstr=KHC,hyper=PRI_IID,values=1:%d)",z$rankdef,n*14)
     m<-timed(sprintf("S8 KH %s (rankdef %d)",ty,z$rankdef),safe(MAINV,data=d,extra=ex));if(is.null(m))next;SAVEW(m,paste0("S8_KH_",ty),d);out<-rbind(out,tab(m,MAINV,list(model=paste0("KH_",ty),WAIC=round(m$waic$waic,1),cpo_fail_frac=fstat(m)$cpo_fail_frac)))}
   write.csv(out,F8,row.names=FALSE)}
 
 F9<-file.path(RES,"S9_between_within.csv")
-if(RUN("S9")&&!file.exists(F9)){d<-DD;ex<-character(0);for(v in HYPV){b<-ave(d[[v]],d$area);d[[paste0(v,"__B")]]<-b;d[[paste0(v,"__W")]]<-d[[v]]-b;ex<-c(ex,bt(paste0(v,"__B")),bt(paste0(v,"__W")))}
-  m<-timed("S9 between/within",safe(FORCED,data=d,extra=ex));out<-NULL;for(v in HYPV)for(k in c("B","W")){r<-orr(m,paste0(v,"__",k));r$cov<-v;r$component<-ifelse(k=="B","between","within");out<-rbind(out,r)};write.csv(out,F9,row.names=FALSE);rm(m)}
+if(RUN("S9")&&!file.exists(F9)){d<-DD;ex<-character(0);for(cvar in HYPV){b<-ave(d[[cvar]],d$area);d[[paste0(cvar,"__B")]]<-b;d[[paste0(cvar,"__W")]]<-d[[cvar]]-b;ex<-c(ex,bt(paste0(cvar,"__B")),bt(paste0(cvar,"__W")))}
+  m<-timed("S9 between/within",safe(FORCED,data=d,extra=ex));out<-NULL;for(cvar in HYPV)for(kk in c("B","W")){r<-orr(m,paste0(cvar,"__",kk));r$cov<-cvar;r$component<-ifelse(kk=="B","between","within");out<-rbind(out,r)};write.csv(out,F9,row.names=FALSE);rm(m)}
 
 F10<-file.path(RES,"S10_lag.csv")
-if(RUN("S10")&&!file.exists(F10)){out<-NULL;for(L in 1:2){d<-DD[order(DD$area,DD$year),];for(v in HYPV)d[[v]]<-ave(d[[v]],d$area,FUN=function(s)c(rep(NA,L),head(s,-L)));d<-d[d$year>=Y0+L,];d<-d[order(d$year,d$area),];d$time<-d$year-min(d$year)+1;d$yiid<-d$time;d$id<-seq_len(nrow(d))
-  m<-timed(sprintf("S10 lag %d",L),safe(MAINV,data=d));out<-rbind(out,tab(m,MAINV,list(lag=L)))};write.csv(out,F10,row.names=FALSE)}
+if(RUN("S10")&&!file.exists(F10)){out<-NULL;for(lg in 1:2){d<-DD[order(DD$area,DD$year),];for(cvar in HYPV)d[[cvar]]<-ave(d[[cvar]],d$area,FUN=function(s)c(rep(NA,lg),head(s,-lg)));d<-d[d$year>=Y0+lg,];d<-d[order(d$year,d$area),];d$time<-d$year-min(d$year)+1;d$yiid<-d$time;d$id<-seq_len(nrow(d))
+  m<-timed(sprintf("S10 lag %d",lg),safe(MAINV,data=d));out<-rbind(out,tab(m,MAINV,list(lag=lg)))};write.csv(out,F10,row.names=FALSE)}
 
 F11<-file.path(RES,"S11_leave_one_sido.csv")
-if(RUN("S11")&&!file.exists(F11)){out<-NULL;for(s in sort(unique(sidoOf))){d<-DD[sidoOf[DD$area]!=s,];d$id<-seq_len(nrow(d));m<-safe(MAINV,data=d,cpo=FALSE);if(is.null(m))next;out<-rbind(out,tab(m,HYPV,list(left_out=s)));rr_<-spatialOR(m);rr_$left_out<-s;S11SP<-rbind(if(exists("S11SP"))S11SP else NULL,rr_)};LOG("S11 done");write.csv(out,F11,row.names=FALSE);write.csv(S11SP,file.path(RES,"S11_spatialOR_long.csv"),row.names=FALSE)}
+if(RUN("S11")&&!file.exists(F11)){out<-NULL;for(sd_ in sort(unique(sidoOf))){d<-DD[sidoOf[DD$area]!=sd_,];d$id<-seq_len(nrow(d));m<-safe(MAINV,data=d,cpo=FALSE);if(is.null(m))next;out<-rbind(out,tab(m,HYPV,list(left_out=sd_)));rr_<-spatialOR(m);rr_$left_out<-sd_;S11SP<-rbind(if(exists("S11SP"))S11SP else NULL,rr_)};LOG("S11 done");write.csv(out,F11,row.names=FALSE);write.csv(S11SP,file.path(RES,"S11_spatialOR_long.csv"),row.names=FALSE)}
 
 F12<-file.path(RES,"S12_likelihood.csv")
 if(RUN("S12")&&!file.exists(F12)){out<-NULL
@@ -225,12 +225,12 @@ if(RUN("S14")&&!file.exists(F14)){set.seed(4)
   write.csv(data.frame(cov=MAINV,label_en=LAB[MAINV],spearman_with_report_gap_2018=rgc),file.path(RES,"S14_report_gap_correlates.csv"),row.names=FALSE)
   dm<-FA[FA$year%in%c(2018,2019)&!is.na(FA$y_logit_meas),c("year","fbd_region","area","y_logit_meas","v_logit_meas","meas_SR")]
   X18<-DD[DD$year==2018,c("area",MAINV)];dm<-merge(dm,X18,by="area");dm<-dm[order(dm$year,dm$area),];dm$id<-seq_len(nrow(dm));dm$yiid<-dm$year-2017
-  form<-as.formula(paste("y_logit_meas~",paste(c("1",bt(MAINV),SPf(),"f(yiid,model='iid',hyper=pcp)",CELL),collapse="+")))
+  form<-as.formula(paste("y_logit_meas~",paste(c("1",bt(MAINV),SPf(),"f(yiid,model='iid',hyper=PRI_IID)",CELL),collapse="+")))
   FB$last<-"default(direct inla)"
-  m<-timed("S14 measured FH",inla(form,family="gaussian",data=dm,scale=1/dm$v_logit_meas,control.family=FIXP,control.fixed=CF,control.compute=list(waic=TRUE,dic=TRUE),control.inla=list(control.vb=list(emergency=50)),verbose=FALSE))
+  m<-timed("S14 measured FH",inla(form,family="gaussian",data=dm,scale=1/dm$v_logit_meas,control.family=FIXP,control.fixed=PRI_FIX,control.compute=list(waic=TRUE,dic=TRUE),control.inla=list(control.vb=list(emergency=50)),verbose=FALSE))
   ir<-tab(m,MAINV);ir$outcome<-"measured_obesity_2018_2019";write.csv(ir,F14,row.names=FALSE)
   ds<-DD[DD$year==2018,];ds$id<-seq_len(nrow(ds))
-  m2<-timed("S14 self-report 2018 FH",inla(as.formula(paste("y_logit~",paste(c("1",bt(MAINV),SPf(),CELL),collapse="+"))),family="gaussian",data=ds,scale=ds$w,control.family=FIXP,control.fixed=CF,control.compute=list(waic=TRUE),control.inla=list(control.vb=list(emergency=50)),verbose=FALSE))
+  m2<-timed("S14 self-report 2018 FH",inla(as.formula(paste("y_logit~",paste(c("1",bt(MAINV),SPf(),CELL),collapse="+"))),family="gaussian",data=ds,scale=ds$w,control.family=FIXP,control.fixed=PRI_FIX,control.compute=list(waic=TRUE),control.inla=list(control.vb=list(emergency=50)),verbose=FALSE))
   i2<-tab(m2,MAINV);i2$outcome<-"self_report_2018";write.csv(i2,file.path(RES,"S14_selfreport2018_OR.csv"),row.names=FALSE)
   rm1<-spatialOR(m);rm2<-spatialOR(m2);write.csv(rm1,file.path(RES,"S14_measured_spatialOR.csv"),row.names=FALSE)
   write.csv(data.frame(spearman_self_vs_measured_2018=round(cs$estimate,3),pearson_self_vs_measured_2018=round(cp,3),p=signif(cs$p.value,3),n=sum(ok),spearman_self2018_vs_measured2019=round(c19$estimate,3),
@@ -240,14 +240,14 @@ if(RUN("S14")&&!file.exists(F14)){set.seed(4)
 F16<-file.path(RES,"S16_RSR.csv")
 if(RUN("S16")&&!file.exists(F16)){Xb<-apply(as.matrix(DD[,MAINV]),2,function(x)tapply(x,DD$area,mean))[as.character(1:n),];Xb<-scale(Xb,scale=FALSE)
   RSRC<<-list(A=cbind(t(Xb),matrix(0,ncol(Xb),n)),e=rep(0,ncol(Xb)))
-  m<-timed("S16 RSR",safe(MAINV,sp="f(area,model='bym2',graph=g,scale.model=TRUE,constr=TRUE,hyper=pc,extraconstr=RSRC)",cpo=FALSE));write.csv(if(is.null(m))data.frame(note="RSR fit failed (default and robust retry)") else tab(m,MAINV,list(variant="RSR")),F16,row.names=FALSE)}
+  m<-timed("S16 RSR",safe(MAINV,sp="f(area,model='bym2',graph=g,scale.model=TRUE,constr=TRUE,hyper=PRI_BYM2,extraconstr=RSRC)",cpo=FALSE));write.csv(if(is.null(m))data.frame(note="RSR fit failed (default and robust retry)") else tab(m,MAINV,list(variant="RSR")),F16,row.names=FALSE)}
 F17<-file.path(RES,"S17_region_slopes.csv")
 if(RUN("S17")&&!file.exists(F17)&&file.exists(F3)){RG<-c("서울시"="Capital","인천시"="Capital","경기도"="Capital","대전시"="Chungcheong","세종시"="Chungcheong","충청북도"="Chungcheong","충청남도"="Chungcheong","광주시"="Honam","전라북도"="Honam","전라남도"="Honam",
     "부산시"="Yeongnam","대구시"="Yeongnam","울산시"="Yeongnam","경상북도"="Yeongnam","경상남도"="Yeongnam","강원도"="Gangwon_Jeju","제주도"="Gangwon_Jeju")
   DD$rg<-unname(RG[sidoOf[DD$area]]);stopifnot(!anyNA(DD$rg));main<-read.csv(F3,stringsAsFactors=FALSE);ROBV<-main$cov[main$cred&main$role=="hypothesis"]
   m0<-safe(MAINV,cpo=FALSE);w0<-m0$waic$waic;out<-NULL;SAVEW(m0,"S17_common")
-  for(v in ROBV){D2<-DD;nv<-character(0);for(r in unique(DD$rg)){cn<-paste0(v,"__",r);D2[[cn]]<-D2[[v]]*(D2$rg==r);nv<-c(nv,cn)}
-    m<-safe(c(setdiff(MAINV,v),nv),data=D2,cpo=FALSE);if(is.null(m))next;SAVEW(m,paste0("S17_region_",v),D2);r<-do.call(rbind,lapply(nv,function(x)orr(m,x)));r$WAIC_region<-round(m$waic$waic,1);r$WAIC_common<-round(w0,1);r$covariate<-v;r$region<-sub(".*__","",r$cov);r$dWAIC_vs_common<-round(m$waic$waic-w0,1);out<-rbind(out,r)}
+  for(cvar in ROBV){D2<-DD;nv<-character(0);for(rgn in unique(DD$rg)){cn<-paste0(cvar,"__",rgn);D2[[cn]]<-D2[[cvar]]*(D2$rg==rgn);nv<-c(nv,cn)}
+    m<-safe(c(setdiff(MAINV,cvar),nv),data=D2,cpo=FALSE);if(is.null(m))next;SAVEW(m,paste0("S17_region_",cvar),D2);r<-do.call(rbind,lapply(nv,function(x)orr(m,x)));r$WAIC_region<-round(m$waic$waic,1);r$WAIC_common<-round(w0,1);r$covariate<-cvar;r$region<-sub(".*__","",r$cov);r$dWAIC_vs_common<-round(m$waic$waic-w0,1);out<-rbind(out,r)}
   write.csv(if(is.null(out))data.frame(note="no credible hypothesis variable") else out,F17,row.names=FALSE)}
 F18<-file.path(RES,"S18_influence.csv")
 if(RUN("S18")&&!file.exists(F18)){m<-safe(MAINV,cpo=FALSE);sr<-(DD$y_logit-m$summary.fitted.values$mean)/sqrt(DD$v_logit);k<-abs(sr)>3
@@ -261,11 +261,11 @@ F44<-file.path(RES,"S44_reverse_posthoc.csv")
 if(RUN("S44")&&!file.exists(F44)&&file.exists(F3)){main<-read.csv(F3,stringsAsFactors=FALSE);EXPD<-setNames(main$expected,main$cov)
   REV<-main$cov[main$cred&main$role=="hypothesis"&((main$OR>1&EXPD[main$cov]=="-")|(main$OR<1&EXPD[main$cov]=="+"))];out<-NULL
   ACC<-c("public_sports_facilities_per_100k","village_sports_facilities_per_100k","eloc__dt_1yl20421e__1___1","cars_per_capita")
-  for(v in REV){m1<-safe(c(v,FORCED),cpo=FALSE);r<-orr(m1,v);r$test<-"single_plus_forced";out<-rbind(out,r)
-    m2<-safe(unique(c(v,setdiff(MAINV,setdiff(ACC,v)))),cpo=FALSE);r<-orr(m2,v);r$test<-"main_minus_other_access_vars";out<-rbind(out,r)
-    m3<-safe(setdiff(MAINV,"urban_population_share"),cpo=FALSE);r<-orr(m3,v);r$test<-"main_minus_urban_share";out<-rbind(out,r)
-    FOOD<-c("ext__restaurant_per10k","ext__instant_food_per10k");m4<-safe(unique(c(v,setdiff(MAINV,setdiff(FOOD,v)))),cpo=FALSE);r<-orr(m4,v);r$test<-"main_minus_other_food_vars";out<-rbind(out,r)
-    if(file.exists(file.path(RES,"S14_measured_OR.csv"))){mo_<-read.csv(file.path(RES,"S14_measured_OR.csv"),stringsAsFactors=FALSE);r<-mo_[mo_$cov==v,names(r)[names(r)%in%names(mo_)]];r$test<-"measured_outcome_2018_19";out<-rbind(out[,names(r)],r)}}
+  for(cvar in REV){m1<-safe(c(cvar,FORCED),cpo=FALSE);r<-orr(m1,cvar);r$test<-"single_plus_forced";out<-rbind(out,r)
+    m2<-safe(unique(c(cvar,setdiff(MAINV,setdiff(ACC,cvar)))),cpo=FALSE);r<-orr(m2,cvar);r$test<-"main_minus_other_access_vars";out<-rbind(out,r)
+    m3<-safe(setdiff(MAINV,"urban_population_share"),cpo=FALSE);r<-orr(m3,cvar);r$test<-"main_minus_urban_share";out<-rbind(out,r)
+    FOOD<-c("ext__restaurant_per10k","ext__instant_food_per10k");m4<-safe(unique(c(cvar,setdiff(MAINV,setdiff(FOOD,cvar)))),cpo=FALSE);r<-orr(m4,cvar);r$test<-"main_minus_other_food_vars";out<-rbind(out,r)
+    if(file.exists(file.path(RES,"S14_measured_OR.csv"))){mo_<-read.csv(file.path(RES,"S14_measured_OR.csv"),stringsAsFactors=FALSE);r<-mo_[mo_$cov==cvar,names(r)[names(r)%in%names(mo_)]];r$test<-"measured_outcome_2018_19";out<-rbind(out[,names(r)],r)}}
   if(!is.null(out)){out$label_en<-LAB[out$cov];write.csv(out,F44,row.names=FALSE)};LOG("S44 reverse vars: %s",paste(REV,collapse=","))}
 mkG<-function(nbx,nm){f<-file.path(tempdir(),sprintf("%s_%d.graph",nm,Sys.getpid()));nb2INLA(f,nbx);inla.read.graph(f)}
 rowfit<-function(m,label,d=DD,extra=list()){fs<-fstat(m);rm_<-residMoran(m,d);cbind(data.frame(variant=label,n_obs=nrow(d),WAIC=fs$WAIC,DIC=fs$DIC,phi=fs$phi,sd_area=fs$sd_area,resid_moran_I=round(unname(rm_["I"]),4),resid_moran_p=unname(rm_["p"]),fit_setting=FB$last),as.data.frame(extra))}
@@ -293,27 +293,27 @@ if(RUN("S23")&&!file.exists(F23)){out<-NULL;for(lg in 1:2){d<-DD[DD$year>=Y0+lg,
 F24<-file.path(RES,"S24_spatialplus.csv")
 if(RUN("S24")&&!file.exists(F24)){Am<-matrix(0,n,n);for(ii in seq_len(n))Am[ii,nb[[ii]][nb[[ii]]>0]]<-1;Am<-(Am+t(Am))>0;Lp<-diag(rowSums(Am))-Am*1;ev<-eigen(Lp,symmetric=TRUE);oo<-order(ev$values)
   nz<-sum(ev$values<1e-8);nc<-n.comp.nb(nb)$nc;LOG("S24 graph components %d, zero eigenvalues %d",nc,nz);stopifnot(nz==nc);KK<-23;Ev<-ev$vectors[,oo[(nz+1):(nz+KK)]];d<-DD;EE<-Ev[d$area,];info<-NULL
-  for(v in MAINV){fv<-lm(d[[v]]~EE);r<-resid(fv);info<-rbind(info,data.frame(cov=v,R2_on_eigvecs=round(summary(fv)$r.squared,4)));d[[v]]<-(r-mean(r))/sd(r)}
+  for(cvar in MAINV){fv<-lm(d[[cvar]]~EE);r<-resid(fv);info<-rbind(info,data.frame(cov=cvar,R2_on_eigvecs=round(summary(fv)$r.squared,4)));d[[cvar]]<-(r-mean(r))/sd(r)}
   m<-timed("S24 Spatial+ K=23",safe(MAINV,data=d,cpo=FALSE));out<-if(is.null(m))data.frame(note="Spatial+ fit failed") else tab(m,MAINV,list(variant=sprintf("spatialplus_K%d_excl%dzero",KK,nz),WAIC=round(m$waic$waic,1)))
   write.csv(out,F24,row.names=FALSE);info$n_components<-nc;info$n_zero_eigen<-nz;info$K<-KK;info$eig_used_min<-round(ev$values[oo[nz+1]],5);info$eig_used_max<-round(ev$values[oo[nz+KK]],5);write.csv(info,file.path(RES,"S24_spatialplus_info.csv"),row.names=FALSE)}
 F25<-file.path(RES,"S25_bym2_prior3.csv")
 if(RUN("S25")&&!file.exists(F25)){out<-NULL
   assign("pcB11",list(prec=list(prior="pc.prec",param=c(0.5,0.01)),phi=list(prior="logitbeta",param=c(1,1))),envir=.GlobalEnv)
   assign("pcJef",list(prec=list(prior="pc.prec",param=c(0.5,0.01)),phi=list(prior="logitbeta",param=c(0.5,0.5))),envir=.GlobalEnv)
-  for(pr in list(c("pc_0.5_2of3_main","pc"),c("beta_1_1","pcB11"),c("jeffreys_beta_0.5_0.5","pcJef"))){m<-timed(sprintf("S25 %s",pr[1]),safe(MAINV,sp=SPf("g",pr[2]),cpo=FALSE));if(is.null(m))next;SAVEW(m,paste0("S25_",pr[1]))
+  for(pr in list(c("pc_0.5_2of3_main","PRI_BYM2"),c("beta_1_1","pcB11"),c("jeffreys_beta_0.5_0.5","pcJef"))){m<-timed(sprintf("S25 %s",pr[1]),safe(MAINV,sp=SPf("g",pr[2]),cpo=FALSE));if(is.null(m))next;SAVEW(m,paste0("S25_",pr[1]))
     hp<-m$summary.hyperpar;out<-rbind(out,tab(m,MAINV,list(phi_prior=pr[1],WAIC=round(m$waic$waic,1),phi_mean=round(hp["Phi for area","mean"],3),phi_lo=round(hp["Phi for area","0.025quant"],3),phi_hi=round(hp["Phi for area","0.975quant"],3))))}
   write.csv(out,F25,row.names=FALSE)}
 F26<-file.path(RES,"S26_resid_moran_by_spec.csv")
-if(RUN("S26")&&!file.exists(F26)){ICARs<-"f(area,model='besag',graph=g,scale.model=TRUE,constr=TRUE,hyper=pcp)";IIDs<-"f(area,model='iid',hyper=pcp)";PARS<-unique(c(SETS[["S5_core"]],FORCED))
+if(RUN("S26")&&!file.exists(F26)){ICARs<-"f(area,model='besag',graph=g,scale.model=TRUE,constr=TRUE,hyper=PRI_IID)";IIDs<-"f(area,model='iid',hyper=PRI_IID)";PARS<-unique(c(SETS[["S5_core"]],FORCED))
   V<-list(main_bym2_typeI=list(v=MAINV,sp=SPf()),forced_only=list(v=FORCED,sp=SPf()),parsimonious_S5core=list(v=PARS,sp=SPf()),no_spatial=list(v=MAINV,sp=NULL),iid_area=list(v=MAINV,sp=IIDs),icar=list(v=MAINV,sp=ICARs))
   out<-NULL;est<-NULL;for(nm in names(V)){m<-timed(sprintf("S26 %s",nm),safe(V[[nm]]$v,sp=V[[nm]]$sp,cpo=FALSE));if(is.null(m))next;SAVEW(m,paste0("S26_",nm));out<-rbind(out,rowfit(m,nm,DD,list(n_cov=length(V[[nm]]$v))));est<-rbind(est,tab(m,V[[nm]]$v,list(variant=nm)))}
   write.csv(out,F26,row.names=FALSE);write.csv(est,file.path(RES,"S26_spec_OR.csv"),row.names=FALSE)}
 F27<-file.path(RES,"S27_kchs_covariates.csv")
 if(RUN("S27")&&!file.exists(F27)){KC<-intersect(c("walking_practice_rate","moderate_pa_rate","high_risk_drinking_rate_drinkers","current_smoking_rate","perceived_stress_rate"),MAINV)
   d<-DD;d$sy<-as.integer(factor(paste(sidoOf[d$area],d$year)));V<-list()
-  for(v in KC)V[[paste0("minus_",v)]]<-list(v=setdiff(MAINV,v));V[["minus_all_kchs"]]<-list(v=setdiff(MAINV,KC))
-  for(v in KC)V[[paste0("forced_plus_",v)]]<-list(v=c(v,FORCED))
-  V[["main_plus_sido_year_iid"]]<-list(v=MAINV,ex="f(sy,model='iid',hyper=pcp)");V[["main_plus_kchs_index_seatbelt"]]<-list(v=c(MAINV,"rear_seatbelt_wearing_rate"))
+  for(cvar in KC)V[[paste0("minus_",cvar)]]<-list(v=setdiff(MAINV,cvar));V[["minus_all_kchs"]]<-list(v=setdiff(MAINV,KC))
+  for(cvar in KC)V[[paste0("forced_plus_",cvar)]]<-list(v=c(cvar,FORCED))
+  V[["main_plus_sido_year_iid"]]<-list(v=MAINV,ex="f(sy,model='iid',hyper=PRI_IID)");V[["main_plus_kchs_index_seatbelt"]]<-list(v=c(MAINV,"rear_seatbelt_wearing_rate"))
   out<-NULL;for(nm in names(V)){ex<-if(is.null(V[[nm]]$ex))character(0) else V[[nm]]$ex;m<-timed(sprintf("S27 %s",nm),safe(V[[nm]]$v,data=d,extra=ex,cpo=FALSE));if(is.null(m))next;out<-rbind(out,tab(m,V[[nm]]$v,list(variant=nm,WAIC=round(m$waic$waic,1))))}
   write.csv(out,F27,row.names=FALSE)}
 F28<-file.path(RES,"S28_forced_drop.csv")
@@ -321,19 +321,19 @@ if(RUN("S28")&&!file.exists(F28)){V<-list(minus_sexratio_pop80=setdiff(MAINV,c("
   for(nm in names(V)){m<-timed(sprintf("S28 %s",nm),safe(V[[nm]],cpo=FALSE));if(is.null(m))next;out<-rbind(out,tab(m,V[[nm]],list(variant=nm,WAIC=round(m$waic$waic,1))))};write.csv(out,F28,row.names=FALSE)}
 F29<-file.path(RES,"S29_standard_extras.csv")
 if(RUN("S29")&&!file.exists(F29)){out<-NULL;qq<-quantile(DD$SR,c(.01,.99))
-  V<-list(time_rw2=list(ti="f(time,model='rw2',scale.model=TRUE,hyper=pcp,values=1:%d)"),time_ar1=list(ti="f(time,model='ar1',hyper=pcp,values=1:%d)"),
+  V<-list(time_rw2=list(ti="f(time,model='rw2',scale.model=TRUE,hyper=PRI_IID,values=1:%d)"),time_ar1=list(ti="f(time,model='ar1',hyper=PRI_IID,values=1:%d)"),
     odd_years=list(k=DD$year%%2==1),even_years=list(k=DD$year%%2==0),drop_extreme_SR_P1_P99=list(k=DD$SR>=qq[1]&DD$SR<=qq[2]))
   for(nm in names(V)){d<-DD;if(!is.null(V[[nm]]$k)){d<-DD[V[[nm]]$k,];d$id<-seq_len(nrow(d))};m<-timed(sprintf("S29 %s",nm),safe(MAINV,data=d,ti=V[[nm]]$ti,cpo=FALSE));if(is.null(m))next;out<-rbind(out,tab(m,MAINV,list(variant=nm,n_obs=nrow(d),WAIC=round(m$waic$waic,1))))}
   write.csv(out,F29,row.names=FALSE)
-  d<-DD;ho<-d$year==2024;d$y_logit[ho]<-NA;rhs<-c("1",bt(MAINV),SPf(),sprintf("f(time,model='rw1',scale.model=TRUE,hyper=pcp,values=1:%d)",max(d$time)),IT,CELL)
-  FB$last<-"default(direct inla)";m<-timed("S29 out-of-sample 2024",inla(as.formula(paste("y_logit~",paste(rhs,collapse="+"))),family="gaussian",data=d,scale=d$w,control.family=FIXP,control.fixed=CF,control.predictor=list(compute=TRUE),control.inla=list(control.vb=list(emergency=50)),verbose=FALSE))
+  d<-DD;ho<-d$year==2024;d$y_logit[ho]<-NA;rhs<-c("1",bt(MAINV),SPf(),sprintf("f(time,model='rw1',scale.model=TRUE,hyper=PRI_IID,values=1:%d)",max(d$time)),IT,CELL)
+  FB$last<-"default(direct inla)";m<-timed("S29 out-of-sample 2024",inla(as.formula(paste("y_logit~",paste(rhs,collapse="+"))),family="gaussian",data=d,scale=d$w,control.family=FIXP,control.fixed=PRI_FIX,control.predictor=list(compute=TRUE),control.inla=list(control.vb=list(emergency=50)),verbose=FALSE))
   pm<-m$summary.linear.predictor$mean[ho];ps<-sqrt(m$summary.linear.predictor$sd[ho]^2+DD$v_logit[ho]);yo<-DD$y_logit[ho];y23<-DD$y_logit[DD$year==2023][match(DD$area[ho],DD$area[DD$year==2023])]
   write.csv(data.frame(holdout_year=2024,n=sum(ho),rmse_logit=round(sqrt(mean((yo-pm)^2)),4),mae_SR_pctpt=round(mean(abs(100*plogis(yo)-100*plogis(pm))),3),coverage95=round(mean(abs(yo-pm)<=1.96*ps),4),
     spearman_obs_pred=round(cor(yo,pm,method="spearman"),4),rmse_logit_naive_2023carry=round(sqrt(mean((yo-y23)^2)),4)),file.path(RES,"S29_out_of_sample_2024.csv"),row.names=FALSE)}
 F31<-file.path(RES,"S31_transform_single.csv")
 if(RUN("S31")&&!file.exists(F31)){TV<-META$variable[META$transform%in%c("log","log1p")&META$variable%in%MAINV];zz<-function(x)(x-mean(x))/sqrt(mean((x-mean(x))^2));out<-NULL
   V<-c(setNames(as.list(TV),paste0("raw_",TV)),list(all_log_vars_raw=TV))
-  for(nm in names(V)){d<-DD;for(v in V[[nm]]){rc<-paste0(v,"_raw");stopifnot(rc%in%names(d),!anyNA(d[[rc]]));tr<-META$transform[META$variable==v];xr<-if(tr=="log")exp(d[[rc]]) else expm1(d[[rc]]);d[[v]]<-zz(xr)};m<-timed(sprintf("S31 %s",nm),safe(MAINV,data=d,cpo=FALSE));if(is.null(m))next;out<-rbind(out,tab(m,MAINV,list(variant=nm,WAIC=round(m$waic$waic,1))))}
+  for(nm in names(V)){d<-DD;for(cvar in V[[nm]]){rc<-paste0(cvar,"_raw");stopifnot(rc%in%names(d),!anyNA(d[[rc]]));tr<-META$transform[META$variable==cvar];xr<-if(tr=="log")exp(d[[rc]]) else expm1(d[[rc]]);d[[cvar]]<-zz(xr)};m<-timed(sprintf("S31 %s",nm),safe(MAINV,data=d,cpo=FALSE));if(is.null(m))next;out<-rbind(out,tab(m,MAINV,list(variant=nm,WAIC=round(m$waic$waic,1))))}
   write.csv(out,F31,row.names=FALSE)}
 if(length(FB$log))LOG("fit fallbacks: %s",paste(FB$log,collapse=","))
 LOG("ALL DONE (%s)",if(nzchar(ONLY))ONLY else "all")

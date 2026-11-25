@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # District code tools: names in any spelling to 5-digit district codes (229 system), stops on failure; boundary-file check. Code tables sigungu_key.csv and sigungu_alias.csv are read from SIGUNGU_KEY_DIR (not included).
-"""시군구 코드 결합 공용 도구 (2026-10-21).
+"""시군구 코드 결합 공용 도구.
 
 이름으로 결합하지 말고 반드시 sigungu_cd(5자리, 229 체계)로 바꾼 뒤 결합한다.
   to_code(names, year=None)              이름(표기 아무거나) -> sigungu_cd. 못 찾으면 예외로 멈춤(조용한 NA 없음).
@@ -22,7 +22,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 KEY_DIR = os.environ.get("SIGUNGU_KEY_DIR", HERE)
 KEY_CSV = os.path.join(KEY_DIR, "sigungu_key.csv")
 ALIAS_CSV = os.path.join(KEY_DIR, "sigungu_alias.csv")
-DEFAULT_SHP = os.environ.get("ST_SHP", "final.shp")
+DEFAULT_SHP = os.environ.get("ST_SHP", "data/boundary/final.shp")
 
 SIDO_FORMS = {
     "서울": ["서울특별시", "서울시", "서울"], "부산": ["부산광역시", "부산시", "부산"],

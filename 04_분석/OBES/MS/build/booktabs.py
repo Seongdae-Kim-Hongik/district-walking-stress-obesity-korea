@@ -6,7 +6,10 @@ def _border(parent, edge, val, sz):
     e = parent.find(qn(f"w:{edge}"))
     if e is None:
         e = OxmlElement(f"w:{edge}"); parent.append(e)
-    e.set(qn("w:val"), val); e.set(qn("w:sz"), str(sz)); e.set(qn("w:space"), "0"); e.set(qn("w:color"), "000000")
+    e.set(qn("w:val"), val)
+    for at in ("w:sz", "w:space", "w:color"):
+        if e.get(qn(at)) is not None: del e.attrib[qn(at)]
+    if val != "nil": e.set(qn("w:sz"), str(sz)); e.set(qn("w:space"), "0"); e.set(qn("w:color"), "000000")
 
 def _usable_twips(doc):
     """본문 요소 순서대로 각 표가 속한 섹션의 사용 폭(twips)을 돌려준다."""
@@ -77,5 +80,17 @@ def fix(doc):
                 anchor = next(x for x in (tcPr.find(qn("w:vMerge")), span, tcw) if x is not None)
                 anchor.addnext(cb)
         for s in tbl.iter(qn("w:shd")): s.getparent().remove(s)
+        lays = tblPr.findall(qn("w:tblLayout"))
+        for x in lays[1:]: tblPr.remove(x)
+        cm = tblPr.find(qn("w:tblCellMar"))
+        if cm is None: cm = OxmlElement("w:tblCellMar"); tblPr.append(cm)
+        for side in ("top", "left", "bottom", "right"):
+            e = cm.find(qn(f"w:{side}"))
+            if e is None: e = OxmlElement(f"w:{side}"); cm.append(e)
+            e.set(qn("w:w"), "0" if side in ("top", "bottom") else "40"); e.set(qn("w:type"), "dxa")
+        ORDER = ["tblStyle", "tblpPr", "tblOverlap", "bidiVisual", "tblStyleRowBandSize", "tblStyleColBandSize", "tblW", "jc", "tblCellSpacing", "tblInd", "tblBorders", "shd", "tblLayout", "tblCellMar", "tblLook", "tblCaption", "tblDescription"]
+        kids = list(tblPr); rank = {qn(f"w:{k}"): i for i, k in enumerate(ORDER)}
+        for k in kids: tblPr.remove(k)
+        for k in sorted(kids, key=lambda x: rank.get(x.tag, 99)): tblPr.append(k)
         n += 1
     return n

@@ -1,5 +1,5 @@
 # Village sports facilities: corrections of source-table misalignments (reassigned cells; double-counted or collapsed cells set to missing and interpolated within district).
-# Environment: ST_SQLITE (district-year SQLite, read-only), PANEL_WORKDIR (work folder with input_v1/, src_data/, tables/, out/, gate/; default current folder).
+# Environment: ST_SQLITE (district-year SQLite, read-only), PANEL_WORKDIR (work folder with input_first/, src_data/, tables/, out/, gate/; default current folder).
 import sqlite3, os, json, unicodedata
 import pandas as pd, numpy as np
 B = os.environ.get("PANEL_WORKDIR", os.getcwd())
@@ -12,7 +12,7 @@ N = R.pivot(index="sigungu_cd", columns="year", values="n"); A = R.pivot(index="
 name = R.drop_duplicates("sigungu_cd").set_index("sigungu_cd").fbd_region
 N0, A0 = N.copy(), A.copy(); LOG = []
 def put(cd, y, n_new, a_new, step, evidence):
-    LOG.append(dict(step=step, year=y, sigungu_cd=cd, fbd_region=name[cd], n_sqlite=N0.at[cd, y], area_sqlite=A0.at[cd, y], n_v2=n_new, area_v2=a_new, evidence=evidence))
+    LOG.append(dict(step=step, year=y, sigungu_cd=cd, fbd_region=name[cd], n_sqlite=N0.at[cd, y], area_sqlite=A0.at[cd, y], n_corrected=n_new, area_corrected=a_new, evidence=evidence))
     N.at[cd, y] = n_new; A.at[cd, y] = a_new
 assert N0.at["37310", 2023] == 461
 put("37310", 2023, np.nan, np.nan, "S1_군위2023_이중집계_결측", "2023년말 마을체육시설 xlsx: 대구 시트 군위군 행 = 달성군 행과 전 열 동일(48·238,090㎡·체력단련 317), 경북 시트 군위군 행 = 의성군 값(413·115,649㎡, 2022·2024 의성과 같은 면적). 빌더가 두 행을 합해 461")
@@ -64,7 +64,7 @@ for cd in N.index:
             if spike2: put(cd, q, np.nan, np.nan, "S6_잔여_결측처리(규칙)", f"2년 3배 일탈 후 복귀의 둘째 해; 앞 {p}={s[p]:g}, 복귀 {nxt[1]}={s[nxt[1]]:g}")
 L = pd.DataFrame(LOG).drop_duplicates(["year", "sigungu_cd", "step"])
 L.to_csv(os.path.join(B, "tables/T07_마을체육시설_정정기록.csv"), index=False, encoding="utf-8-sig")
-out = N.stack(future_stack=True).rename("vil_n_v2").reset_index().rename(columns={"level_1": "year"})
+out = N.stack(future_stack=True).rename("vil_n_corrected").reset_index().rename(columns={"level_1": "year"})
 out = out.merge(N0.stack(future_stack=True).rename("vil_n_sqlite").reset_index().rename(columns={"level_1": "year"}), on=["sigungu_cd", "year"])
-out.to_csv(os.path.join(B, "tables/T07b_마을체육시설_계_v2_전칸.csv"), index=False, encoding="utf-8-sig")
+out.to_csv(os.path.join(B, "tables/T07b_마을체육시설_계_정정_전칸.csv"), index=False, encoding="utf-8-sig")
 pd.set_option("display.width", 260); print(L.drop(columns=["evidence"]).to_string()); print(L.groupby("step").size())

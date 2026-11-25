@@ -7,10 +7,10 @@ source(file.path(HERE,"81fh_obes.R"))
 RES<-EXRES;WD<-file.path(RES,"waic_local");dir.create(WD,showWarnings=FALSE)
 EX<-read.csv(file.path(RES,"extra_inputs.csv"),fileEncoding="UTF-8-BOM",stringsAsFactors=FALSE);EX$fbd_region<-enc2utf8(EX$fbd_region)
 ix<-match(paste(DD$year,DD$fbd_region),paste(EX$year,EX$fbd_region));stopifnot(!anyNA(ix));EX<-EX[ix,]
-for(k in setdiff(names(EX),c("year","fbd_region")))DD[[k]]<-EX[[k]]
+for(kk in setdiff(names(EX),c("year","fbd_region")))DD[[kk]]<-EX[[kk]]
 PUB<-"public_sports_facilities_per_100k";VIL<-"village_sports_facilities_per_100k";MV<-"moderate_pa_rate";TE<-"tertiary_educated_share";BL<-"basic_livelihood_rate"
 LAB["pub_km2_z"]<-"Public sports facilities per km2 (log)";LAB["vil_km2_z"]<-"Village sports facilities per km2 (log)"
-ICAR<-"f(area,model='besag',graph=g,scale.model=TRUE,constr=TRUE,hyper=pcp)"
+ICAR<-"f(area,model='besag',graph=g,scale.model=TRUE,constr=TRUE,hyper=PRI_IID)"
 reid<-function(d){d$id<-seq_len(nrow(d));d}
 bm<-function(m,v){r<-m$summary.fixed[v,,drop=FALSE];data.frame(beta_mean=r$mean)}
 FITS<-list(
@@ -37,13 +37,13 @@ for(nm in names(FITS)){fo<-file.path(RES,"fits",sprintf("fit_%s_OR.csv",nm));if(
   Fi<-FITS[[nm]];d<-DD;extra<-character(0);vars<-Fi$vars;spx<-if(is.null(Fi$sp))SPf() else if(Fi$sp=="NONE")NULL else Fi$sp
   if(!is.null(Fi$keep))d<-reid(d[Fi$keep(d),])
   if(isTRUE(Fi$twoway)){ex<-character(0)
-    for(v in HYPV){b<-ave(d[[v]],d$area);tt<-ave(d[[v]],d$year);d[[paste0(v,"__B")]]<-b;d[[paste0(v,"__W2")]]<-d[[v]]-b-tt+mean(d[[v]]);ex<-c(ex,bt(paste0(v,"__B")),bt(paste0(v,"__W2")))}
+    for(cvar in HYPV){b<-ave(d[[cvar]],d$area);tt<-ave(d[[cvar]],d$year);d[[paste0(cvar,"__B")]]<-b;d[[paste0(cvar,"__W2")]]<-d[[cvar]]-b-tt+mean(d[[cvar]]);ex<-c(ex,bt(paste0(cvar,"__B")),bt(paste0(cvar,"__W2")))}
     extra<-ex;vars<-FORCED}
   if(!is.null(Fi$mi)){set.seed(20261125+Fi$mi);for(fl in names(MIMAP)){v<-MIMAP[[fl]];k<-d[[fl]]==1;d[[v]][k]<-d[[v]][k]+rnorm(sum(k),0,d[[paste0("sd_",v)]][k])}}
   set.seed(20261110)
   m<-timed(sprintf("EX %s (n=%d)",nm,nrow(d)),safe(vars,data=d,extra=extra,sp=spx));stopifnot(!is.null(m))
   if(nrow(d)==nrow(DD))SAVEW(m,paste0("EX_",nm),d)
-  if(isTRUE(Fi$twoway)){ir<-NULL;for(v in HYPV)for(k in c("B","W2")){vv<-paste0(v,"__",k);r<-cbind(orr(m,vv),bm(m,vv));r$cov<-v;r$component<-ifelse(k=="B","between","within_twoway");r$sd_component<-sd(d[[vv]]);ir<-rbind(ir,r)}
+  if(isTRUE(Fi$twoway)){ir<-NULL;for(cvar in HYPV)for(kk in c("B","W2")){vv<-paste0(cvar,"__",kk);r<-cbind(orr(m,vv),bm(m,vv));r$cov<-cvar;r$component<-ifelse(kk=="B","between","within_twoway");r$sd_component<-sd(d[[vv]]);ir<-rbind(ir,r)}
     ir$label_en<-LAB[ir$cov];ir$fit<-nm;ir$n_obs<-nrow(d)
     fr<-cbind(tab(m,FORCED),bm(m,FORCED));fr$component<-"forced";fr$sd_component<-NA;fr$fit<-nm;fr$n_obs<-nrow(d);ir<-rbind(ir,fr[,names(ir)])
   } else {ir<-cbind(tab(m,vars,list(fit=nm,n_obs=nrow(d))),bm(m,vars))}

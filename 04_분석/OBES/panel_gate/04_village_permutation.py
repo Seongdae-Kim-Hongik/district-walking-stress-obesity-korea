@@ -1,5 +1,5 @@
 # Village sports facilities: detection of label-value misalignment (row shifts) by matching fingerprints with neighbouring years of other districts in the same province.
-# Environment: ST_SQLITE (district-year SQLite, read-only), PANEL_WORKDIR (work folder with input_v1/, src_data/, tables/, out/, gate/; default current folder).
+# Environment: ST_SQLITE (district-year SQLite, read-only), PANEL_WORKDIR (work folder with input_first/, src_data/, tables/, out/, gate/; default current folder).
 import sqlite3, os, unicodedata, json
 import pandas as pd, numpy as np
 B = os.environ.get("PANEL_WORKDIR", os.getcwd())

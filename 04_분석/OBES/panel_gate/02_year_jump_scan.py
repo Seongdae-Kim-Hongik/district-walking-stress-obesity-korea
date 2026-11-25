@@ -1,16 +1,16 @@
 # Full scan for year-to-year jumps and zero cells on the raw scale, 2011-2024: (a) <0.2x or >5x the neighbour-year mean, (b) single-year 3x spikes, (c) 3x steps that persist, (d) end years.
-# Environment: ST_SQLITE (district-year SQLite, read-only), PANEL_WORKDIR (work folder with input_v1/, src_data/, tables/, out/, gate/; default current folder).
+# Environment: ST_SQLITE (district-year SQLite, read-only), PANEL_WORKDIR (work folder with input_first/, src_data/, tables/, out/, gate/; default current folder).
 import sqlite3, json, os, unicodedata
 import numpy as np, pandas as pd
 B = os.environ.get("PANEL_WORKDIR", os.getcwd())
 DB = os.environ["ST_SQLITE"]
 NFC = lambda s: unicodedata.normalize("NFC", s) if isinstance(s, str) else s
 c = sqlite3.connect(f"file:{DB}?mode=ro", uri=True)
-cfg = json.load(open(os.path.join(B, "input_v1/config_OBES_std3.json"))); V = cfg["vars"]
+cfg = json.load(open(os.path.join(B, "input_first/config_OBES_std3.json"))); V = cfg["vars"]
 cols = sorted({v["column"] for v in V.values() if not v["column"].startswith("ext__")} | {"kchs__DT_H_OBE_OBE__SR", "kchs__DT_H_OBE_OBE__SR_SE"})
 R = pd.read_sql("select year,key,fbd_region,sigungu_cd,population," + ",".join(f'"{x}"' for x in cols) + " from region_year where year between 2011 and 2024", c)
 R.columns = [NFC(x) for x in R.columns]; R["fbd_region"] = R.fbd_region.map(NFC)
-X = pd.read_csv(os.path.join(B, "src_data/EXT_canonical_pool_OBES_261111.csv"), encoding="utf-8-sig"); X["fbd_region"] = X.fbd_region.map(NFC)
+X = pd.read_csv(os.path.join(B, "src_data/EXT_canonical_pool_OBES.csv"), encoding="utf-8-sig"); X["fbd_region"] = X.fbd_region.map(NFC)
 R = R.merge(X.rename(columns={k: "x_" + k for k in X.columns if k not in ("year", "fbd_region")}), on=["year", "fbd_region"], how="left", validate="one_to_one")
 H = pd.read_csv(os.path.join(B, "src_data/HTN_Estd2.csv"), encoding="utf-8-sig"); H["fbd_region"] = H.fbd_region.map(NFC)
 R = R.merge(H[["year", "fbd_region", "pop80_share_raw", "pop65_share_raw"]], on=["year", "fbd_region"], how="left", validate="one_to_one")

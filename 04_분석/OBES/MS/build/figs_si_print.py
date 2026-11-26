@@ -5,7 +5,7 @@ import os, unicodedata
 import numpy as np, pandas as pd, geopandas as gpd, matplotlib
 matplotlib.use("Agg"); import matplotlib.pyplot as plt
 from matplotlib.colors import BoundaryNorm, ListedColormap
-from matplotlib.patches import Patch
+from matplotlib.patches import Patch, Polygon, Rectangle
 from matplotlib.lines import Line2D
 import figs_common as C
 HERE = os.path.dirname(os.path.abspath(__file__)); OUT = os.environ.get("OBES_SI_OUT", os.path.join(os.path.dirname(HERE), "out", "SI_figures")); os.makedirs(OUT, exist_ok=True)
@@ -26,9 +26,20 @@ def cjoin(d):
     return G.merge(d.drop(columns=[c for c in ("fbd_region",) if c in d]), on="sigungu_cd", how="left", validate="one_to_one")
 def base(ax):
     SIDO.boundary.plot(ax=ax, color="#555555", linewidth=0.25); ax.set_axis_off(); ax.set_aspect("equal")
-def letter(ax, s, t=""):
+def letter(ax, s):
     ax.text(0.0, 1.0, s, transform=ax.transAxes, fontsize=PANEL_PT, fontweight="bold", va="bottom", ha="left")
-    if t: ax.text(0.09, 1.0, t, transform=ax.transAxes, fontsize=FS, va="bottom", ha="left")
+K = 3
+def northscale(ax):
+    assert G.crs.to_epsg() == 5179
+    XL, YL = ax.get_xlim(), ax.get_ylim(); ax_, ay_, ah, aw = NA_XY[0], NA_XY[1], 0.075 * K * 0.78, 0.012 * K * 1.4
+    ax.add_patch(Polygon([(ax_ - aw / 2, ay_), (ax_ + aw / 2, ay_), (ax_, ay_ + ah)], closed=True, transform=ax.transAxes, facecolor="black", edgecolor="black", lw=0.4))
+    ax.text(ax_, ay_ + ah + 0.01, "N", transform=ax.transAxes, ha="center", va="bottom", fontsize=FS * K, fontweight="bold")
+    sx, sy, bh = XL[0] + SB_XY[0] * (XL[1] - XL[0]), YL[0] + SB_XY[1] * (YL[1] - YL[0]), 0.012 * (YL[1] - YL[0])
+    for k, fc in enumerate(["black", "white"]): ax.add_patch(Rectangle((sx + k * 50_000, sy), 50_000, bh, facecolor=fc, edgecolor="black", lw=0.5))
+    for d in (0, 100): ax.text(sx + d * 1000, sy + bh * 1.6, str(d), ha="center", va="bottom", fontsize=FS)
+    ax.text(sx + 50_000, sy - bh * 0.8, "50", ha="center", va="top", fontsize=FS)
+    ax.text(sx + 100_000 + 0.02 * (XL[1] - XL[0]), sy + bh / 2, "km", ha="left", va="center", fontsize=FS)
+NA_XY, SB_XY = (0.08, 0.42), (0.02, 0.11)
 def classes(ax, g, col, brk, cols):
     g = g.copy(); g["k"] = pd.cut(g[col], brk, right=False, labels=False)
     for k, c in enumerate(cols): g[g.k == k].plot(color=c, ax=ax, edgecolor="#a0a0a0", linewidth=0.05)
@@ -36,23 +47,13 @@ def legend(fig, rect, cols, labs, title):
     ax = fig.add_axes(rect); ax.set_axis_off()
     ax.legend(handles=[Patch(facecolor=c, edgecolor="#777777", linewidth=0.4, label=l) for c, l in zip(cols, labs)], loc="center", ncol=len(labs), frameon=False, fontsize=FS, title=title, title_fontsize=FS, handlelength=1.4, columnspacing=1.0)
 def save(fig, n):
-    p = os.path.join(OUT, f"FigureS{n}.png"); fig.savefig(p, dpi=300, facecolor="white"); plt.close(fig); return p
+    p = os.path.join(OUT, f"FigureS{n}.png"); fig.savefig(p, dpi=300, facecolor="white", metadata={"Software": None}); plt.close(fig)
+    from PIL import Image as _Im
+    with _Im.open(p) as _im: assert not any(k.lower() == "software" or "matplotlib" in str(v).lower() for k, v in _im.info.items()), (p, _im.info)
+    return p
 DIV_B = [-np.inf, 0.90, 0.95, 1.00, 1.05, 1.10, np.inf]; DIV_L = ["<0.90", "0.90–<0.95", "0.95–<1.00", "1.00–<1.05", "1.05–<1.10", "≥1.10"]; DIV_C = plt.get_cmap("RdBu_r")(np.linspace(0.08, 0.92, 6))
 SEQ_B = [-np.inf, 28, 30, 32, 35, np.inf]; SEQ_L = ["<28", "28–<30", "30–<32", "32–<35", "≥35"]; SEQ_C = plt.get_cmap("YlOrRd")(np.linspace(0.12, 0.92, 5))
 WIN = [("W1_2011-15", "2011–2015"), ("W2_2016-18", "2016–2018"), ("W3_2020-24", "2020–2024")]
-
-W = pd.read_csv(os.path.join(X2, "W85_window_spatialOR.csv"))
-PB = [0, .05, .5, .8, .95, 1.0001]; PL = ["<.05", ".05–<.50", ".50–<.80", ".80–<.95", "≥.95"]; PC = ["#2166AC", "#D1E5F0", "#FEE0B6", "#FDAE61", "#B2182B"]
-fig, axs = plt.subplots(2, 3, figsize=(FW, 150 * MM)); plt.subplots_adjust(left=0.01, right=0.99, top=0.95, bottom=0.12, wspace=0.02, hspace=0.32)
-for j, (w, wl) in enumerate(WIN):
-    g = cjoin(W[W.window == w][["fbd_region", "OR", "P_gt1", "class"]])
-    classes(axs[0, j], g, "OR", DIV_B, DIV_C)
-    g[g["class"] == "hotspot"].boundary.plot(ax=axs[0, j], color="black", linewidth=0.45); g[g["class"] == "coldspot"].boundary.plot(ax=axs[0, j], color="black", linewidth=0.45, linestyle=(0, (2, 1.2)))
-    base(axs[0, j]); letter(axs[0, j], "ABC"[j], wl)
-    classes(axs[1, j], g, "P_gt1", PB, PC); base(axs[1, j]); letter(axs[1, j], "DEF"[j], wl)
-legend(fig, [0.05, 0.535, 0.9, 0.05], DIV_C, DIV_L, "Spatial odds ratio, refitted within window (solid outline, hotspot; dashed, coldspot)")
-legend(fig, [0.05, 0.01, 0.9, 0.06], PC, PL, "Posterior probability that the spatial odds ratio exceeds 1")
-P1 = save(fig, 1)
 
 D = pd.read_csv(os.path.join(X2, "tables", "wingrid_window_grid_table.csv"))
 ORD = [v for g_, vs in C.GROUPS for v in vs]; assert set(ORD) == set(D["cov"])
@@ -72,15 +73,30 @@ _nob = pd.read_csv(os.path.join(X2, "W85_window_fit.csv")).set_index("window").n
 ax.set_xticklabels([f"{wl}\n(n = {int(_nob[w]):,} district-years)" for w, wl in WIN], fontsize=FS)
 ax.set_yticks(np.arange(nr) + 0.5); ax.set_yticklabels([C.LABEL[v] for v in ORD][::-1], fontsize=FS); ax.tick_params(length=0)
 for s in ax.spines.values(): s.set_visible(False)
+P1 = save(fig, 1)
+
+W = pd.read_csv(os.path.join(X2, "W85_window_spatialOR.csv"))
+PB = [0, .05, .5, .8, .95, 1.0001]; PL = ["<.05", ".05–<.50", ".50–<.80", ".80–<.95", "≥.95"]; PC = ["#2166AC", "#D1E5F0", "#FEE0B6", "#FDAE61", "#B2182B"]
+fig, axs = plt.subplots(2, 3, figsize=(FW, 150 * MM)); plt.subplots_adjust(left=0.01, right=0.99, top=0.95, bottom=0.12, wspace=0.02, hspace=0.32)
+for j, (w, wl) in enumerate(WIN):
+    g = cjoin(W[W.window == w][["fbd_region", "OR", "P_gt1", "class"]])
+    classes(axs[0, j], g, "OR", DIV_B, DIV_C)
+    g[g["class"] == "hotspot"].boundary.plot(ax=axs[0, j], color="black", linewidth=0.45); g[g["class"] == "coldspot"].boundary.plot(ax=axs[0, j], color="black", linewidth=0.45, linestyle=(0, (2, 1.2)))
+    base(axs[0, j]); axs[0, j].set_title(wl, fontsize=PANEL_PT - 2, pad=4)
+    classes(axs[1, j], g, "P_gt1", PB, PC); base(axs[1, j])
+    if j == 0: northscale(axs[0, j]); northscale(axs[1, j])
+letter(axs[0, 0], "A"); letter(axs[1, 0], "B")
+legend(fig, [0.05, 0.535, 0.9, 0.05], DIV_C, DIV_L, "Spatial odds ratio, refitted within window (solid outline, hotspot; dashed, coldspot)")
+legend(fig, [0.05, 0.01, 0.9, 0.06], PC, PL, "Posterior probability that the spatial odds ratio exceeds 1")
 P2 = save(fig, 2)
 
 E = pd.read_csv(os.path.join(X2, "tables", "obsfit_district_obs_fit_resid.csv"))
 g = cjoin(E[["sigungu_cd", "obs", "fit", "res"]])
 fig, axs = plt.subplots(1, 3, figsize=(FW, 95 * MM)); plt.subplots_adjust(left=0.01, right=0.99, top=0.93, bottom=0.30, wspace=0.03)
-classes(axs[0], g, "obs", SEQ_B, SEQ_C); base(axs[0]); letter(axs[0], "A", "Observed")
-classes(axs[1], g, "fit", SEQ_B, SEQ_C); base(axs[1]); letter(axs[1], "B", "Fitted")
-RB = [-np.inf, -0.05, -0.02, 0.02, 0.05, np.inf]; RL = ["<−0.05", "−0.05–<−0.02", "−0.02–<0.02", "0.02–<0.05", "≥0.05"]; RC = plt.get_cmap("PuOr_r")(np.linspace(0.1, 0.9, 5))
-classes(axs[2], g, "res", RB, RC); base(axs[2]); letter(axs[2], "C", "Residual")
+classes(axs[0], g, "obs", SEQ_B, SEQ_C); base(axs[0]); letter(axs[0], "A"); northscale(axs[0])
+classes(axs[1], g, "fit", SEQ_B, SEQ_C); base(axs[1]); letter(axs[1], "B")
+RB = [-np.inf, -0.05, -0.02, 0.02, 0.05, np.inf]; RL = ["<−0.05", "−0.05–<−0.02", "−0.02–<0.02", "0.02–<0.05", "≥0.05"]; RC = plt.get_cmap("RdBu_r")(np.linspace(0.1, 0.9, 5))
+classes(axs[2], g, "res", RB, RC); base(axs[2]); letter(axs[2], "C")
 legend(fig, [0.0, 0.15, 1.0, 0.09], SEQ_C, SEQ_L, "Panels A and B: self-reported obesity, %, 2011–2024 mean")
 legend(fig, [0.0, 0.03, 1.0, 0.09], RC, RL, "Panel C: observed − fitted, logit")
 P3 = save(fig, 3)

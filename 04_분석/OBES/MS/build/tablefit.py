@@ -7,7 +7,7 @@ LOG = []
 def _w(text, pt, bold=False):
     f = ImageFont.truetype(FB if bold else F, size=100)
     return f.getlength(text) / 100 * pt * CM_PER_PT
-def _plain(s): return re.sub(r"<[^>]+>", "", str(s))
+def _plain(s): return re.sub(r"</?(?:i|b|sup)>", "", str(s))
 def fit(header, rows, avail=15.9, tiers=(11, 10, 9, 8.5, 8, 7.5, 7, 6.5), pad=0.45):
     """반환 (fs, widths_cm). need = 최장 토큰 폭×1.08 + pad(셀 여백), pref = 셀 전체 문자열 폭. 첫 열(라벨)은 들여쓰기 0.33 cm 포함."""
     data = [r for r in rows if r and r[0] not in ("__H__", "__SP__")]

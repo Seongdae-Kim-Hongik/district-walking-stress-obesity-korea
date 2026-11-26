@@ -16,8 +16,9 @@
   "issue": "",
   "pages": "103101",
   "doi": "10.1016/j.healthplace.2023.103101",
-  "pmid": "37625238",
-  "verified": "PubMed esummary 2026-11-11"
+  "zotero": "SEXPJUDX",
+  "verified": "Zotero SPPE_OBES_2026 2026-11-25 (format: PubMed esummary 2026-11-11)",
+  "pmid": "37625238"
  },
  "audrain2011cigarette": {
   "type": "journal",
@@ -32,8 +33,31 @@
   "issue": "1",
   "pages": "164-168",
   "doi": "10.1038/clpt.2011.105",
-  "pmid": "21633341",
-  "verified": "PubMed esummary 2026-11-11"
+  "zotero": "GREXZFAZ",
+  "verified": "Zotero SPPE_OBES_2026 2026-11-25 (format: PubMed esummary 2026-11-11)",
+  "pmid": "21633341"
+ },
+ "carrerastorres2018role": {
+  "type": "journal",
+  "authors": [
+   "Carreras-Torres R",
+   "Johansson M",
+   "Haycock PC",
+   "Relton CL",
+   "Davey Smith G",
+   "Brennan P",
+   "Martin RM"
+  ],
+  "title": "Role of obesity in smoking behaviour: mendelian randomisation study in UK Biobank",
+  "journal": "BMJ",
+  "year": 2018,
+  "vol": "361",
+  "issue": "",
+  "pages": "k1767",
+  "doi": "10.1136/bmj.k1767",
+  "zotero": "JA8C8KWM",
+  "verified": "Zotero SPPE_OBES_2026 2026-11-25 (format: PubMed efetch 2026-11-24; key/PMID/DOI = refs/manifest/ALL_refs.csv)",
+  "pmid": "29769355"
  },
  "china2025childhood": {
   "type": "journal",
@@ -59,8 +83,28 @@
   "issue": "7",
   "pages": "1344-1354",
   "doi": "10.1002/oby.24303",
-  "pmid": "40375731",
-  "verified": "PubMed esummary 2026-11-11"
+  "zotero": "SV88PRVA",
+  "verified": "Zotero SPPE_OBES_2026 2026-11-25 (format: PubMed esummary 2026-11-11)",
+  "pmid": "40375731"
+ },
+ "chiolero2008consequences": {
+  "type": "journal",
+  "authors": [
+   "Chiolero A",
+   "Faeh D",
+   "Paccaud F",
+   "Cornuz J"
+  ],
+  "title": "Consequences of smoking for body weight, body fat distribution, and insulin resistance",
+  "journal": "Am J Clin Nutr",
+  "year": 2008,
+  "vol": "87",
+  "issue": "4",
+  "pages": "801-809",
+  "doi": "10.1093/ajcn/87.4.801",
+  "zotero": "382GH449",
+  "verified": "Zotero SPPE_OBES_2026 2026-11-25 (format: PubMed efetch 2026-11-24; key/PMID/DOI = refs/manifest/ALL_refs.csv)",
+  "pmid": "18400700"
  },
  "choi2020walkability": {
   "type": "journal",
@@ -75,8 +119,29 @@
   "issue": "6",
   "pages": "2060",
   "doi": "10.3390/ijerph17062060",
-  "pmid": "32244911",
-  "verified": "PubMed esummary 2026-11-11"
+  "zotero": "E5S5PIQS",
+  "verified": "Zotero SPPE_OBES_2026 2026-11-25 (format: PubMed esummary 2026-11-11)",
+  "pmid": "32244911"
+ },
+ "chung2017gender": {
+  "type": "journal",
+  "authors": [
+   "Chung W",
+   "Lim SJ",
+   "Lee S",
+   "Kim R",
+   "Kim J"
+  ],
+  "title": "Gender-specific interactions between education and income in relation to obesity: a cross-sectional analysis of the Fifth Korea National Health and Nutrition Examination Survey (KNHANES V)",
+  "journal": "BMJ Open",
+  "year": 2017,
+  "vol": "7",
+  "issue": "12",
+  "pages": "e014276",
+  "doi": "10.1136/bmjopen-2016-014276",
+  "zotero": "WHGWZ3FD",
+  "verified": "Zotero SPPE_OBES_2026 2026-11-25 (format: PubMed efetch 2026-11-24; key/PMID/DOI = refs/manifest/ALL_refs.csv)",
+  "pmid": "29288171"
  },
  "county2024socioenvironmental": {
   "type": "journal",
@@ -96,8 +161,9 @@
   "issue": "5",
   "pages": "1766-1774",
   "doi": "10.1111/dom.15488",
-  "pmid": "38356053",
-  "verified": "PubMed esummary 2026-11-11"
+  "zotero": "85WZT5SH",
+  "verified": "Zotero SPPE_OBES_2026 2026-11-25 (format: PubMed esummary 2026-11-11)",
+  "pmid": "38356053"
  },
  "dwyerlindgren2013prevalence": {
   "type": "journal",
@@ -117,8 +183,9 @@
   "issue": "",
   "pages": "7",
   "doi": "10.1186/1478-7954-11-7",
-  "pmid": "23842197",
-  "verified": "PubMed esummary 2026-11-11"
+  "zotero": "WMPJKPIA",
+  "verified": "Zotero SPPE_OBES_2026 2026-11-25 (format: PubMed esummary 2026-11-11)",
+  "pmid": "23842197"
  },
  "ellaway2016recreational": {
   "type": "journal",
@@ -135,8 +202,25 @@
   "issue": "",
   "pages": "756",
   "doi": "10.1186/s12889-016-3444-8",
-  "pmid": "27506767",
-  "verified": "PubMed esummary 2026-11-11"
+  "zotero": "7DP3SR3I",
+  "verified": "Zotero SPPE_OBES_2026 2026-11-25 (format: PubMed esummary 2026-11-11)",
+  "pmid": "27506767"
+ },
+ "fay1979estimates": {
+  "type": "journal",
+  "authors": [
+   "Fay RE",
+   "Herriot RA"
+  ],
+  "title": "Estimates of income for small places: an application of James-Stein procedures to census data",
+  "journal": "J Am Stat Assoc",
+  "year": 1979,
+  "vol": "74",
+  "issue": "366",
+  "pages": "269-277",
+  "doi": "10.1080/01621459.1979.10482505",
+  "zotero": "5UFADX3G",
+  "verified": "Zotero SPPE_OBES_2026 2026-11-25 (format: Crossref 2026-11-11)"
  },
  "food2024environment": {
   "type": "journal",
@@ -154,8 +238,9 @@
   "issue": "1",
   "pages": "204-211",
   "doi": "10.1136/bmjnph-2023-000663",
-  "pmid": "38966119",
-  "verified": "PubMed esummary 2026-11-11"
+  "zotero": "RZJT68VG",
+  "verified": "Zotero SPPE_OBES_2026 2026-11-25 (format: PubMed esummary 2026-11-11)",
+  "pmid": "38966119"
  },
  "fuller2014utilitarian": {
   "type": "journal",
@@ -170,8 +255,26 @@
   "issue": "",
   "pages": "261-266",
   "doi": "10.1016/j.ypmed.2014.10.022",
-  "pmid": "25450496",
-  "verified": "PubMed esummary 2026-11-11"
+  "zotero": "AZWWUVV5",
+  "verified": "Zotero SPPE_OBES_2026 2026-11-25 (format: PubMed esummary 2026-11-11)",
+  "pmid": "25450496"
+ },
+ "gao2023spatial": {
+  "type": "journal",
+  "authors": [
+   "Gao PA",
+   "Wakefield J"
+  ],
+  "title": "A spatial variance-smoothing area level model for small area estimation of demographic rates",
+  "journal": "Int Stat Rev",
+  "year": 2023,
+  "vol": "91",
+  "issue": "3",
+  "pages": "493-510",
+  "doi": "10.1111/insr.12556",
+  "zotero": "E77VU7UA",
+  "verified": "Zotero SPPE_OBES_2026 2026-11-25 (format: PubMed efetch 2026-11-24; key/PMID/DOI = refs/manifest/ALL_refs.csv)",
+  "pmid": "39469131"
  },
  "gbd2025adult": {
   "type": "journal",
@@ -185,8 +288,27 @@
   "issue": "10481",
   "pages": "813-838",
   "doi": "10.1016/S0140-6736(25)00355-1",
-  "pmid": "40049186",
-  "verified": "PubMed esummary 2026-11-11"
+  "zotero": "HIVZQ45Z",
+  "verified": "Zotero SPPE_OBES_2026 2026-11-25 (format: PubMed esummary 2026-11-11)",
+  "pmid": "40049186"
+ },
+ "golzarand2022association": {
+  "type": "journal",
+  "authors": [
+   "Golzarand M",
+   "Salari-Moghaddam A",
+   "Mirmiran P"
+  ],
+  "title": "Association between alcohol intake and overweight and obesity: a systematic review and dose-response meta-analysis of 127 observational studies",
+  "journal": "Crit Rev Food Sci Nutr",
+  "year": 2022,
+  "vol": "62",
+  "issue": "29",
+  "pages": "8078-8098",
+  "doi": "10.1080/10408398.2021.1925221",
+  "zotero": "VR4ZMPQJ",
+  "verified": "Zotero SPPE_OBES_2026 2026-11-25 (format: PubMed efetch 2026-11-24; key/PMID/DOI = refs/manifest/ALL_refs.csv)",
+  "pmid": "33998940"
  },
  "greenland1989ecological": {
   "type": "journal",
@@ -201,8 +323,60 @@
   "issue": "1",
   "pages": "269-274",
   "doi": "10.1093/ije/18.1.269",
-  "pmid": "2656561",
-  "verified": "PubMed esummary 2026-11-11"
+  "zotero": "D6WWSW4I",
+  "verified": "Zotero SPPE_OBES_2026 2026-11-25 (format: PubMed esummary 2026-11-11)",
+  "pmid": "2656561"
+ },
+ "han2018spatial": {
+  "type": "journal",
+  "authors": [
+   "Han EJ",
+   "Kang K",
+   "Sohn SY"
+  ],
+  "title": "Spatial association of public sports facilities with body mass index in Korea",
+  "journal": "Geospat Health",
+  "year": 2018,
+  "vol": "13",
+  "issue": "1",
+  "pages": "542",
+  "doi": "10.4081/gh.2018.542",
+  "zotero": "RRHSKFBS",
+  "verified": "Zotero SPPE_OBES_2026 2026-11-25 (format: PubMed efetch 2026-11-24; key/PMID/DOI = refs/manifest/ALL_refs.csv)",
+  "pmid": "29772876"
+ },
+ "hodges2010adding": {
+  "type": "journal",
+  "authors": [
+   "Hodges JS",
+   "Reich BJ"
+  ],
+  "title": "Adding spatially-correlated errors can mess up the fixed effect you love",
+  "journal": "Am Stat",
+  "year": 2010,
+  "vol": "64",
+  "issue": "4",
+  "pages": "325-334",
+  "doi": "10.1198/tast.2010.10052",
+  "zotero": "J3R9TKCR",
+  "verified": "Zotero SPPE_OBES_2026 2026-11-25 (format: Crossref 2026-11-11)"
+ },
+ "jun2018gender": {
+  "type": "journal",
+  "authors": [
+   "Jun HJ",
+   "Namgung M"
+  ],
+  "title": "Gender difference and spatial heterogeneity in local obesity",
+  "journal": "Int J Environ Res Public Health",
+  "year": 2018,
+  "vol": "15",
+  "issue": "2",
+  "pages": "311",
+  "doi": "10.3390/ijerph15020311",
+  "zotero": "2SUKPBSV",
+  "verified": "Zotero SPPE_OBES_2026 2026-11-25 (format: PubMed efetch 2026-11-24; key/PMID/DOI = refs/manifest/ALL_refs.csv)",
+  "pmid": "29439430"
  },
  "kang2015korea": {
   "type": "journal",
@@ -223,8 +397,9 @@
   "issue": "3",
   "pages": "211-217",
   "doi": "10.1016/j.phrp.2015.05.003",
-  "pmid": "26430619",
-  "verified": "PubMed esummary 2026-11-11"
+  "zotero": "NQFW73ES",
+  "verified": "Zotero SPPE_OBES_2026 2026-11-25 (format: PubMed esummary 2026-11-11)",
+  "pmid": "26430619"
  },
  "kim2017seoul": {
   "type": "journal",
@@ -240,8 +415,27 @@
   "issue": "8",
   "pages": "898",
   "doi": "10.3390/ijerph14080898",
-  "pmid": "28792465",
-  "verified": "PubMed esummary 2026-11-11"
+  "zotero": "7SGVDA8C",
+  "verified": "Zotero SPPE_OBES_2026 2026-11-25 (format: PubMed esummary 2026-11-11)",
+  "pmid": "28792465"
+ },
+ "kim2023comparison": {
+  "type": "journal",
+  "authors": [
+   "Kim I",
+   "Kang HY",
+   "Khang YH"
+  ],
+  "title": "Comparison of Bayesian spatiotemporal models for small-area life expectancy: a simulation study",
+  "journal": "Am J Epidemiol",
+  "year": 2023,
+  "vol": "192",
+  "issue": "8",
+  "pages": "1396-1405",
+  "doi": "10.1093/aje/kwad073",
+  "zotero": "W6QCTT88",
+  "verified": "Zotero SPPE_OBES_2026 2026-11-25 (format: PubMed efetch 2026-11-24; key/PMID/DOI = refs/manifest/ALL_refs.csv)",
+  "pmid": "36963380"
  },
  "kim2026obesity": {
   "type": "journal",
@@ -264,8 +458,9 @@
   "issue": "2",
   "pages": "176-187",
   "doi": "10.7570/jomes25094",
-  "pmid": "41942294",
-  "verified": "PubMed efetch 2026-11-24 (title per PubMed)"
+  "zotero": "XF4G668E",
+  "verified": "Zotero SPPE_OBES_2026 2026-11-25 (format: PubMed efetch 2026-11-24 (title per PubMed))",
+  "pmid": "41942294"
  },
  "kinge2015educational": {
   "type": "journal",
@@ -282,8 +477,29 @@
   "issue": "12",
   "pages": "1141-1146",
   "doi": "10.1136/jech-2014-205353",
-  "pmid": "26179449",
-  "verified": "PubMed esummary 2026-11-11"
+  "zotero": "Q56M8BMT",
+  "verified": "Zotero SPPE_OBES_2026 2026-11-25 (format: PubMed esummary 2026-11-11)",
+  "pmid": "26179449"
+ },
+ "kivimaki2015job": {
+  "type": "journal",
+  "authors": [
+   "Kivimäki M",
+   "Singh-Manoux A",
+   "Nyberg S",
+   "Jokela M",
+   "Virtanen M"
+  ],
+  "title": "Job strain and risk of obesity: systematic review and meta-analysis of cohort studies",
+  "journal": "Int J Obes (Lond)",
+  "year": 2015,
+  "vol": "39",
+  "issue": "11",
+  "pages": "1597-1600",
+  "doi": "10.1038/ijo.2015.103",
+  "zotero": "HZNTEIVP",
+  "verified": "Zotero SPPE_OBES_2026 2026-11-25 (format: PubMed efetch 2026-11-24; key/PMID/DOI = refs/manifest/ALL_refs.csv)",
+  "pmid": "26041697"
  },
  "knorrheld2000bayesian": {
   "type": "journal",
@@ -297,8 +513,30 @@
   "issue": "17-18",
   "pages": "2555-2567",
   "doi": "10.1002/1097-0258(20000915/30)19:17/18<2555::aid-sim587>3.0.co;2-#",
-  "pmid": "10960871",
-  "verified": "PubMed esummary 2026-11-11"
+  "zotero": "5CKTRWCZ",
+  "verified": "Zotero SPPE_OBES_2026 2026-11-25 (format: PubMed esummary 2026-11-11)",
+  "pmid": "10960871"
+ },
+ "ko2022differences": {
+  "type": "journal",
+  "authors": [
+   "Ko Y",
+   "Choi S",
+   "Won J",
+   "Lee YK",
+   "Kim DH",
+   "Lee SK"
+  ],
+  "title": "Differences in accuracy of height, weight, and body mass index between self-reported and measured using the 2018 Korea Community Health Survey data",
+  "journal": "Epidemiol Health",
+  "year": 2022,
+  "vol": "44",
+  "issue": "",
+  "pages": "e2022024",
+  "doi": "10.4178/epih.e2022024",
+  "zotero": "BHD4ZMB4",
+  "verified": "Zotero SPPE_OBES_2026 2026-11-25 (format: PubMed efetch 2026-11-24; key/PMID/DOI = refs/manifest/ALL_refs.csv)",
+  "pmid": "35209710"
  },
  "maukonen2018comparison": {
   "type": "journal",
@@ -314,8 +552,9 @@
   "issue": "5",
   "pages": "565-579",
   "doi": "10.1177/1403494818761971",
-  "pmid": "29528773",
-  "verified": "PubMed esummary 2026-11-11"
+  "zotero": "HH2K88VB",
+  "verified": "Zotero SPPE_OBES_2026 2026-11-25 (format: PubMed esummary 2026-11-11)",
+  "pmid": "29528773"
  },
  "mercer2015space": {
   "type": "journal",
@@ -334,8 +573,9 @@
   "issue": "4",
   "pages": "1889-1905",
   "doi": "10.1214/15-AOAS872",
-  "pmid": "27468328",
-  "verified": "PubMed esummary 2026-11-11"
+  "zotero": "MKKAUXIK",
+  "verified": "Zotero SPPE_OBES_2026 2026-11-25 (format: PubMed esummary 2026-11-11)",
+  "pmid": "27468328"
  },
  "ncdrisc2024worldwide": {
   "type": "journal",
@@ -349,8 +589,9 @@
   "issue": "10431",
   "pages": "1027-1050",
   "doi": "10.1016/S0140-6736(23)02750-2",
-  "pmid": "38432237",
-  "verified": "PubMed esummary 2026-11-11"
+  "zotero": "ETC5KRKI",
+  "verified": "Zotero SPPE_OBES_2026 2026-11-25 (format: PubMed esummary 2026-11-11)",
+  "pmid": "38432237"
  },
  "neighbourhood2019ses": {
   "type": "journal",
@@ -370,8 +611,9 @@
   "issue": "11",
   "pages": "e028238",
   "doi": "10.1136/bmjopen-2018-028238",
-  "pmid": "31727643",
-  "verified": "PubMed esummary 2026-11-11"
+  "zotero": "6PXFKVV7",
+  "verified": "Zotero SPPE_OBES_2026 2026-11-25 (format: PubMed esummary 2026-11-11)",
+  "pmid": "31727643"
  },
  "netherlands2020clustering": {
   "type": "journal",
@@ -391,8 +633,9 @@
   "issue": "1",
   "pages": "839",
   "doi": "10.4081/gh.2020.839",
-  "pmid": "32575968",
-  "verified": "PubMed esummary 2026-11-11"
+  "zotero": "TMSCZFIK",
+  "verified": "Zotero SPPE_OBES_2026 2026-11-25 (format: PubMed esummary 2026-11-11)",
+  "pmid": "32575968"
  },
  "noble2015clustering": {
   "type": "journal",
@@ -409,8 +652,9 @@
   "issue": "",
   "pages": "16-41",
   "doi": "10.1016/j.ypmed.2015.07.003",
-  "pmid": "26190368",
-  "verified": "PubMed esummary 2026-11-11"
+  "zotero": "Q4T3T29P",
+  "verified": "Zotero SPPE_OBES_2026 2026-11-25 (format: PubMed esummary 2026-11-11)",
+  "pmid": "26190368"
  },
  "okuyama2020fastfood": {
   "type": "journal",
@@ -430,8 +674,45 @@
   "issue": "8",
   "pages": "1703-1711",
   "doi": "10.1038/s41366-020-0588-5",
-  "pmid": "32424265",
-  "verified": "PubMed esummary 2026-11-11"
+  "zotero": "2INZ4UVQ",
+  "verified": "Zotero SPPE_OBES_2026 2026-11-25 (format: PubMed esummary 2026-11-11)",
+  "pmid": "32424265"
+ },
+ "park2017relationship": {
+  "type": "journal",
+  "authors": [
+   "Park KY",
+   "Park HK",
+   "Hwang HS"
+  ],
+  "title": "Relationship between abdominal obesity and alcohol drinking pattern in normal-weight, middle-aged adults: the Korea National Health and Nutrition Examination Survey 2008-2013",
+  "journal": "Public Health Nutr",
+  "year": 2017,
+  "vol": "20",
+  "issue": "12",
+  "pages": "2192-2200",
+  "doi": "10.1017/S1368980017001045",
+  "zotero": "PJK9AZWF",
+  "verified": "Zotero SPPE_OBES_2026 2026-11-25 (format: PubMed efetch 2026-11-24; key/PMID/DOI = refs/manifest/ALL_refs.csv)",
+  "pmid": "28641594"
+ },
+ "reich2006effects": {
+  "type": "journal",
+  "authors": [
+   "Reich BJ",
+   "Hodges JS",
+   "Zadnik V"
+  ],
+  "title": "Effects of residual smoothing on the posterior of the fixed effects in disease-mapping models",
+  "journal": "Biometrics",
+  "year": 2006,
+  "vol": "62",
+  "issue": "4",
+  "pages": "1197-1206",
+  "doi": "10.1111/j.1541-0420.2006.00617.x",
+  "zotero": "U7H9TIS3",
+  "verified": "Zotero SPPE_OBES_2026 2026-11-25 (format: PubMed efetch 2026-11-24; key/PMID/DOI = refs/manifest/ALL_refs.csv)",
+  "pmid": "17156295"
  },
  "richardson2008pedometer": {
   "type": "journal",
@@ -450,8 +731,9 @@
   "issue": "1",
   "pages": "69-77",
   "doi": "10.1370/afm.761",
-  "pmid": "18195317",
-  "verified": "PubMed esummary 2026-11-11"
+  "zotero": "ZTC92WR7",
+  "verified": "Zotero SPPE_OBES_2026 2026-11-25 (format: PubMed esummary 2026-11-11)",
+  "pmid": "18195317"
  },
  "riebler2016intuitive": {
   "type": "journal",
@@ -468,8 +750,45 @@
   "issue": "4",
   "pages": "1145-1165",
   "doi": "10.1177/0962280216660421",
-  "pmid": "27566770",
-  "verified": "PubMed esummary 2026-11-11"
+  "zotero": "PSHZK7RA",
+  "verified": "Zotero SPPE_OBES_2026 2026-11-25 (format: PubMed esummary 2026-11-11)",
+  "pmid": "27566770"
+ },
+ "rue2009approximate": {
+  "type": "journal",
+  "authors": [
+   "Rue H",
+   "Martino S",
+   "Chopin N"
+  ],
+  "title": "Approximate Bayesian inference for latent Gaussian models by using integrated nested Laplace approximations",
+  "journal": "J R Stat Soc Series B Stat Methodol",
+  "year": 2009,
+  "vol": "71",
+  "issue": "2",
+  "pages": "319-392",
+  "doi": "10.1111/j.1467-9868.2008.00700.x",
+  "zotero": "T2KQ4UC2",
+  "verified": "Zotero SPPE_OBES_2026 2026-11-25 (format: Crossref 2026-11-11)"
+ },
+ "simpson2017penalising": {
+  "type": "journal",
+  "authors": [
+   "Simpson D",
+   "Rue H",
+   "Riebler A",
+   "Martins TG",
+   "Sørbye SH"
+  ],
+  "title": "Penalising model component complexity: a principled, practical approach to constructing priors",
+  "journal": "Stat Sci",
+  "year": 2017,
+  "vol": "32",
+  "issue": "1",
+  "pages": "1-28",
+  "doi": "10.1214/16-STS576",
+  "zotero": "S6E6P77M",
+  "verified": "Zotero SPPE_OBES_2026 2026-11-25 (format: Crossref 2026-11-11)"
  },
  "singapore2021selfreport": {
   "type": "journal",
@@ -492,8 +811,9 @@
   "issue": "4",
   "pages": "306-314",
   "doi": "10.47102/annals-acadmedsg.2020183",
-  "pmid": "33990818",
-  "verified": "PubMed esummary 2026-11-11"
+  "zotero": "77Z3GMGP",
+  "verified": "Zotero SPPE_OBES_2026 2026-11-25 (format: PubMed esummary 2026-11-11)",
+  "pmid": "33990818"
  },
  "steegen2016increasing": {
   "type": "journal",
@@ -510,8 +830,26 @@
   "issue": "5",
   "pages": "702-712",
   "doi": "10.1177/1745691616658637",
-  "pmid": "27694465",
-  "verified": "PubMed esummary 2026-11-11"
+  "zotero": "44MT6Q5Z",
+  "verified": "Zotero SPPE_OBES_2026 2026-11-25 (format: PubMed esummary 2026-11-11)",
+  "pmid": "27694465"
+ },
+ "steptoe2023obesity": {
+  "type": "journal",
+  "authors": [
+   "Steptoe A",
+   "Frank P"
+  ],
+  "title": "Obesity and psychological distress",
+  "journal": "Philos Trans R Soc Lond B Biol Sci",
+  "year": 2023,
+  "vol": "378",
+  "issue": "1888",
+  "pages": "20220225",
+  "doi": "10.1098/rstb.2022.0225",
+  "zotero": "47NRKMNG",
+  "verified": "Zotero SPPE_OBES_2026 2026-11-25 (format: PubMed efetch 2026-11-24; key/PMID/DOI = refs/manifest/ALL_refs.csv)",
+  "pmid": "37661745"
  },
  "swinburn1999dissecting": {
   "type": "journal",
@@ -527,361 +865,9 @@
   "issue": "6 Pt 1",
   "pages": "563-570",
   "doi": "10.1006/pmed.1999.0585",
-  "pmid": "10600438",
-  "verified": "PubMed esummary 2026-11-11"
- },
- "traversy2015alcohol": {
-  "type": "journal",
-  "authors": [
-   "Traversy G",
-   "Chaput JP"
-  ],
-  "title": "Alcohol consumption and obesity: an update",
-  "journal": "Curr Obes Rep",
-  "year": 2015,
-  "vol": "4",
-  "issue": "1",
-  "pages": "122-130",
-  "doi": "10.1007/s13679-014-0129-4",
-  "pmid": "25741455",
-  "verified": "PubMed esummary 2026-11-11"
- },
- "vanerpecum2023fastfood": {
-  "type": "journal",
-  "authors": [
-   "van Erpecum CL",
-   "van Zon SKR",
-   "Xie T",
-   "Snieder H",
-   "Bültmann U",
-   "Smidt N"
-  ],
-  "title": "Fast-food environments and BMI changes in the Dutch adult general population: the Lifelines cohort",
-  "journal": "Obesity (Silver Spring)",
-  "year": 2023,
-  "vol": "31",
-  "issue": "8",
-  "pages": "2159-2170",
-  "doi": "10.1002/oby.23781",
-  "pmid": "37434276",
-  "verified": "PubMed esummary 2026-11-11"
- },
- "walkability2019adults": {
-  "type": "journal",
-  "authors": [
-   "Barbosa JPAS",
-   "Guerra PH",
-   "Santos CO",
-   "Nunes APOB",
-   "Turrell G",
-   "Florindo AA"
-  ],
-  "title": "Walkability, overweight, and obesity in adults: a systematic review of observational studies",
-  "journal": "Int J Environ Res Public Health",
-  "year": 2019,
-  "vol": "16",
-  "issue": "17",
-  "pages": "3135",
-  "doi": "10.3390/ijerph16173135",
-  "pmid": "31466371",
-  "verified": "PubMed esummary 2026-11-11"
- },
- "wardle2011stress": {
-  "type": "journal",
-  "authors": [
-   "Wardle J",
-   "Chida Y",
-   "Gibson EL",
-   "Whitaker KL",
-   "Steptoe A"
-  ],
-  "title": "Stress and adiposity: a meta-analysis of longitudinal studies",
-  "journal": "Obesity (Silver Spring)",
-  "year": 2011,
-  "vol": "19",
-  "issue": "4",
-  "pages": "771-778",
-  "doi": "10.1038/oby.2010.241",
-  "pmid": "20948519",
-  "verified": "PubMed esummary 2026-11-11"
- },
- "yoon2014community": {
-  "type": "journal",
-  "authors": [
-   "Yoon NH",
-   "Kwon S"
-  ],
-  "title": "The effects of community environmental factors on obesity among Korean adults: a multilevel analysis",
-  "journal": "Epidemiol Health",
-  "year": 2014,
-  "vol": "36",
-  "issue": "",
-  "pages": "e2014036",
-  "doi": "10.4178/epih/e2014036",
-  "pmid": "25666167",
-  "verified": "PubMed esummary 2026-11-11"
- },
- "fay1979estimates": {
-  "type": "journal",
-  "authors": [
-   "Fay RE",
-   "Herriot RA"
-  ],
-  "title": "Estimates of income for small places: an application of James-Stein procedures to census data",
-  "journal": "J Am Stat Assoc",
-  "year": 1979,
-  "vol": "74",
-  "issue": "366",
-  "pages": "269-277",
-  "doi": "10.1080/01621459.1979.10482505",
-  "verified": "Crossref 2026-11-11"
- },
- "hodges2010adding": {
-  "type": "journal",
-  "authors": [
-   "Hodges JS",
-   "Reich BJ"
-  ],
-  "title": "Adding spatially-correlated errors can mess up the fixed effect you love",
-  "journal": "Am Stat",
-  "year": 2010,
-  "vol": "64",
-  "issue": "4",
-  "pages": "325-334",
-  "doi": "10.1198/tast.2010.10052",
-  "verified": "Crossref 2026-11-11"
- },
- "rue2009approximate": {
-  "type": "journal",
-  "authors": [
-   "Rue H",
-   "Martino S",
-   "Chopin N"
-  ],
-  "title": "Approximate Bayesian inference for latent Gaussian models by using integrated nested Laplace approximations",
-  "journal": "J R Stat Soc Series B Stat Methodol",
-  "year": 2009,
-  "vol": "71",
-  "issue": "2",
-  "pages": "319-392",
-  "doi": "10.1111/j.1467-9868.2008.00700.x",
-  "verified": "Crossref 2026-11-11"
- },
- "simpson2017penalising": {
-  "type": "journal",
-  "authors": [
-   "Simpson D",
-   "Rue H",
-   "Riebler A",
-   "Martins TG",
-   "Sørbye SH"
-  ],
-  "title": "Penalising model component complexity: a principled, practical approach to constructing priors",
-  "journal": "Stat Sci",
-  "year": 2017,
-  "vol": "32",
-  "issue": "1",
-  "pages": "1-28",
-  "doi": "10.1214/16-STS576",
-  "verified": "Crossref 2026-11-11"
- },
- "web:kdca2026kchs": {
-  "type": "web",
-  "authors": "Korea Disease Control and Prevention Agency",
-  "title": "Korea Community Health Survey: district obesity prevalence (self-reported, table DT_H_OBE_OBE; measured, table DT_117075_MEA_OBE) and health behavior indicators, crude and standardized rates with standard errors, 2008-2025. Korean Statistical Information Service",
-  "url": "https://kosis.kr/statHtml/statHtml.do?orgId=177&tblId=DT_H_OBE_OBE",
-  "year": 2026,
-  "accessed": "November 25, 2026"
- },
- "web:mcst2026facilities": {
-  "type": "web",
-  "authors": "Ministry of Culture, Sports and Tourism",
-  "title": "National public sports facility status, 2007-2024",
-  "url": "https://www.mcst.go.kr",
-  "year": 2026,
-  "accessed": "October 18, 2026"
- },
- "web:mois2026licence": {
-  "type": "web",
-  "authors": "Ministry of the Interior and Safety",
-  "title": "Local administrative licensing data: general restaurants and instant food manufacturing and processing businesses, 2011-2024. Public Data Portal",
-  "url": "https://www.data.go.kr",
-  "year": 2026,
-  "accessed": "October 20, 2026"
- },
- "ko2022differences": {
-  "type": "journal",
-  "authors": [
-   "Ko Y",
-   "Choi S",
-   "Won J",
-   "Lee YK",
-   "Kim DH",
-   "Lee SK"
-  ],
-  "title": "Differences in accuracy of height, weight, and body mass index between self-reported and measured using the 2018 Korea Community Health Survey data",
-  "journal": "Epidemiol Health",
-  "year": 2022,
-  "vol": "44",
-  "issue": "",
-  "pages": "e2022024",
-  "doi": "10.4178/epih.e2022024",
-  "pmid": "35209710",
-  "verified": "PubMed efetch 2026-11-24; key/PMID/DOI = refs/manifest/ALL_refs.csv"
- },
- "gao2023spatial": {
-  "type": "journal",
-  "authors": [
-   "Gao PA",
-   "Wakefield J"
-  ],
-  "title": "A spatial variance-smoothing area level model for small area estimation of demographic rates",
-  "journal": "Int Stat Rev",
-  "year": 2023,
-  "vol": "91",
-  "issue": "3",
-  "pages": "493-510",
-  "doi": "10.1111/insr.12556",
-  "pmid": "39469131",
-  "verified": "PubMed efetch 2026-11-24; key/PMID/DOI = refs/manifest/ALL_refs.csv"
- },
- "kim2023comparison": {
-  "type": "journal",
-  "authors": [
-   "Kim I",
-   "Kang HY",
-   "Khang YH"
-  ],
-  "title": "Comparison of Bayesian spatiotemporal models for small-area life expectancy: a simulation study",
-  "journal": "Am J Epidemiol",
-  "year": 2023,
-  "vol": "192",
-  "issue": "8",
-  "pages": "1396-1405",
-  "doi": "10.1093/aje/kwad073",
-  "pmid": "36963380",
-  "verified": "PubMed efetch 2026-11-24; key/PMID/DOI = refs/manifest/ALL_refs.csv"
- },
- "khan2022restricted": {
-  "type": "journal",
-  "authors": [
-   "Khan K",
-   "Calder CA"
-  ],
-  "title": "Restricted spatial regression methods: implications for inference",
-  "journal": "J Am Stat Assoc",
-  "year": 2022,
-  "vol": "117",
-  "issue": "537",
-  "pages": "482-494",
-  "doi": "10.1080/01621459.2020.1788949",
-  "pmid": "36210885",
-  "verified": "PubMed efetch 2026-11-24; key/PMID/DOI = refs/manifest/ALL_refs.csv"
- },
- "steptoe2023obesity": {
-  "type": "journal",
-  "authors": [
-   "Steptoe A",
-   "Frank P"
-  ],
-  "title": "Obesity and psychological distress",
-  "journal": "Philos Trans R Soc Lond B Biol Sci",
-  "year": 2023,
-  "vol": "378",
-  "issue": "1888",
-  "pages": "20220225",
-  "doi": "10.1098/rstb.2022.0225",
-  "pmid": "37661745",
-  "verified": "PubMed efetch 2026-11-24; key/PMID/DOI = refs/manifest/ALL_refs.csv"
- },
- "tomiyama2019stress": {
-  "type": "journal",
-  "authors": [
-   "Tomiyama AJ"
-  ],
-  "title": "Stress and obesity",
-  "journal": "Annu Rev Psychol",
-  "year": 2019,
-  "vol": "70",
-  "issue": "",
-  "pages": "703-718",
-  "doi": "10.1146/annurev-psych-010418-102936",
-  "pmid": "29927688",
-  "verified": "PubMed efetch 2026-11-24; key/PMID/DOI = refs/manifest/ALL_refs.csv"
- },
- "kivimaki2015job": {
-  "type": "journal",
-  "authors": [
-   "Kivimäki M",
-   "Singh-Manoux A",
-   "Nyberg S",
-   "Jokela M",
-   "Virtanen M"
-  ],
-  "title": "Job strain and risk of obesity: systematic review and meta-analysis of cohort studies",
-  "journal": "Int J Obes (Lond)",
-  "year": 2015,
-  "vol": "39",
-  "issue": "11",
-  "pages": "1597-1600",
-  "doi": "10.1038/ijo.2015.103",
-  "pmid": "26041697",
-  "verified": "PubMed efetch 2026-11-24; key/PMID/DOI = refs/manifest/ALL_refs.csv"
- },
- "golzarand2022association": {
-  "type": "journal",
-  "authors": [
-   "Golzarand M",
-   "Salari-Moghaddam A",
-   "Mirmiran P"
-  ],
-  "title": "Association between alcohol intake and overweight and obesity: a systematic review and dose-response meta-analysis of 127 observational studies",
-  "journal": "Crit Rev Food Sci Nutr",
-  "year": 2022,
-  "vol": "62",
-  "issue": "29",
-  "pages": "8078-8098",
-  "doi": "10.1080/10408398.2021.1925221",
-  "pmid": "33998940",
-  "verified": "PubMed efetch 2026-11-24; key/PMID/DOI = refs/manifest/ALL_refs.csv"
- },
- "park2017relationship": {
-  "type": "journal",
-  "authors": [
-   "Park KY",
-   "Park HK",
-   "Hwang HS"
-  ],
-  "title": "Relationship between abdominal obesity and alcohol drinking pattern in normal-weight, middle-aged adults: the Korea National Health and Nutrition Examination Survey 2008-2013",
-  "journal": "Public Health Nutr",
-  "year": 2017,
-  "vol": "20",
-  "issue": "12",
-  "pages": "2192-2200",
-  "doi": "10.1017/S1368980017001045",
-  "pmid": "28641594",
-  "verified": "PubMed efetch 2026-11-24; key/PMID/DOI = refs/manifest/ALL_refs.csv"
- },
- "carrerastorres2018role": {
-  "type": "journal",
-  "authors": [
-   "Carreras-Torres R",
-   "Johansson M",
-   "Haycock PC",
-   "Relton CL",
-   "Davey Smith G",
-   "Brennan P",
-   "Martin RM"
-  ],
-  "title": "Role of obesity in smoking behaviour: mendelian randomisation study in UK Biobank",
-  "journal": "BMJ",
-  "year": 2018,
-  "vol": "361",
-  "issue": "",
-  "pages": "k1767",
-  "doi": "10.1136/bmj.k1767",
-  "pmid": "29769355",
-  "verified": "PubMed efetch 2026-11-24; key/PMID/DOI = refs/manifest/ALL_refs.csv"
+  "zotero": "MK2MMN2M",
+  "verified": "Zotero SPPE_OBES_2026 2026-11-25 (format: PubMed esummary 2026-11-11)",
+  "pmid": "10600438"
  },
  "taylor2019effect": {
   "type": "journal",
@@ -903,95 +889,161 @@
   "issue": "8",
   "pages": "1322-1330",
   "doi": "10.1093/hmg/ddy434",
-  "pmid": "30561638",
-  "verified": "PubMed efetch 2026-11-24; key/PMID/DOI = refs/manifest/ALL_refs.csv"
+  "zotero": "BS3KQSKW",
+  "verified": "Zotero SPPE_OBES_2026 2026-11-25 (format: PubMed efetch 2026-11-24; key/PMID/DOI = refs/manifest/ALL_refs.csv)",
+  "pmid": "30561638"
  },
- "chiolero2008consequences": {
+ "tomiyama2019stress": {
   "type": "journal",
   "authors": [
-   "Chiolero A",
-   "Faeh D",
-   "Paccaud F",
-   "Cornuz J"
+   "Tomiyama AJ"
   ],
-  "title": "Consequences of smoking for body weight, body fat distribution, and insulin resistance",
-  "journal": "Am J Clin Nutr",
-  "year": 2008,
-  "vol": "87",
-  "issue": "4",
-  "pages": "801-809",
-  "doi": "10.1093/ajcn/87.4.801",
-  "pmid": "18400700",
-  "verified": "PubMed efetch 2026-11-24; key/PMID/DOI = refs/manifest/ALL_refs.csv"
+  "title": "Stress and obesity",
+  "journal": "Annu Rev Psychol",
+  "year": 2019,
+  "vol": "70",
+  "issue": "",
+  "pages": "703-718",
+  "doi": "10.1146/annurev-psych-010418-102936",
+  "zotero": "CVG36XZV",
+  "verified": "Zotero SPPE_OBES_2026 2026-11-25 (format: PubMed efetch 2026-11-24; key/PMID/DOI = refs/manifest/ALL_refs.csv)",
+  "pmid": "29927688"
  },
- "chung2017gender": {
+ "traversy2015alcohol": {
   "type": "journal",
   "authors": [
-   "Chung W",
-   "Lim SJ",
-   "Lee S",
-   "Kim R",
-   "Kim J"
+   "Traversy G",
+   "Chaput JP"
   ],
-  "title": "Gender-specific interactions between education and income in relation to obesity: a cross-sectional analysis of the Fifth Korea National Health and Nutrition Examination Survey (KNHANES V)",
-  "journal": "BMJ Open",
-  "year": 2017,
-  "vol": "7",
-  "issue": "12",
-  "pages": "e014276",
-  "doi": "10.1136/bmjopen-2016-014276",
-  "pmid": "29288171",
-  "verified": "PubMed efetch 2026-11-24; key/PMID/DOI = refs/manifest/ALL_refs.csv"
- },
- "jun2018gender": {
-  "type": "journal",
-  "authors": [
-   "Jun HJ",
-   "Namgung M"
-  ],
-  "title": "Gender difference and spatial heterogeneity in local obesity",
-  "journal": "Int J Environ Res Public Health",
-  "year": 2018,
-  "vol": "15",
-  "issue": "2",
-  "pages": "311",
-  "doi": "10.3390/ijerph15020311",
-  "pmid": "29439430",
-  "verified": "PubMed efetch 2026-11-24; key/PMID/DOI = refs/manifest/ALL_refs.csv"
- },
- "reich2006effects": {
-  "type": "journal",
-  "authors": [
-   "Reich BJ",
-   "Hodges JS",
-   "Zadnik V"
-  ],
-  "title": "Effects of residual smoothing on the posterior of the fixed effects in disease-mapping models",
-  "journal": "Biometrics",
-  "year": 2006,
-  "vol": "62",
-  "issue": "4",
-  "pages": "1197-1206",
-  "doi": "10.1111/j.1541-0420.2006.00617.x",
-  "pmid": "17156295",
-  "verified": "PubMed efetch 2026-11-24; key/PMID/DOI = refs/manifest/ALL_refs.csv"
- },
- "han2018spatial": {
-  "type": "journal",
-  "authors": [
-   "Han EJ",
-   "Kang K",
-   "Sohn SY"
-  ],
-  "title": "Spatial association of public sports facilities with body mass index in Korea",
-  "journal": "Geospat Health",
-  "year": 2018,
-  "vol": "13",
+  "title": "Alcohol consumption and obesity: an update",
+  "journal": "Curr Obes Rep",
+  "year": 2015,
+  "vol": "4",
   "issue": "1",
-  "pages": "542",
-  "doi": "10.4081/gh.2018.542",
-  "pmid": "29772876",
-  "verified": "PubMed efetch 2026-11-24; key/PMID/DOI = refs/manifest/ALL_refs.csv"
+  "pages": "122-130",
+  "doi": "10.1007/s13679-014-0129-4",
+  "zotero": "39WP74SV",
+  "verified": "Zotero SPPE_OBES_2026 2026-11-25 (format: PubMed esummary 2026-11-11)",
+  "pmid": "25741455"
+ },
+ "vanerpecum2023fastfood": {
+  "type": "journal",
+  "authors": [
+   "van Erpecum CL",
+   "van Zon SKR",
+   "Xie T",
+   "Snieder H",
+   "Bültmann U",
+   "Smidt N"
+  ],
+  "title": "Fast-food environments and BMI changes in the Dutch adult general population: the Lifelines cohort",
+  "journal": "Obesity (Silver Spring)",
+  "year": 2023,
+  "vol": "31",
+  "issue": "8",
+  "pages": "2159-2170",
+  "doi": "10.1002/oby.23781",
+  "zotero": "EK45QIHM",
+  "verified": "Zotero SPPE_OBES_2026 2026-11-25 (format: PubMed esummary 2026-11-11)",
+  "pmid": "37434276"
+ },
+ "walkability2019adults": {
+  "type": "journal",
+  "authors": [
+   "Barbosa JPAS",
+   "Guerra PH",
+   "Santos CO",
+   "Nunes APOB",
+   "Turrell G",
+   "Florindo AA"
+  ],
+  "title": "Walkability, overweight, and obesity in adults: a systematic review of observational studies",
+  "journal": "Int J Environ Res Public Health",
+  "year": 2019,
+  "vol": "16",
+  "issue": "17",
+  "pages": "3135",
+  "doi": "10.3390/ijerph16173135",
+  "zotero": "5KSA4A9D",
+  "verified": "Zotero SPPE_OBES_2026 2026-11-25 (format: PubMed esummary 2026-11-11)",
+  "pmid": "31466371"
+ },
+ "wardle2011stress": {
+  "type": "journal",
+  "authors": [
+   "Wardle J",
+   "Chida Y",
+   "Gibson EL",
+   "Whitaker KL",
+   "Steptoe A"
+  ],
+  "title": "Stress and adiposity: a meta-analysis of longitudinal studies",
+  "journal": "Obesity (Silver Spring)",
+  "year": 2011,
+  "vol": "19",
+  "issue": "4",
+  "pages": "771-778",
+  "doi": "10.1038/oby.2010.241",
+  "zotero": "GKXDIJSG",
+  "verified": "Zotero SPPE_OBES_2026 2026-11-25 (format: PubMed esummary 2026-11-11)",
+  "pmid": "20948519"
+ },
+ "web:kdca2026kchs": {
+  "type": "web",
+  "authors": "Korea Disease Control and Prevention Agency",
+  "title": "Korea Community Health Survey: district obesity prevalence (self-reported, table DT_H_OBE_OBE; measured, table DT_117075_MEA_OBE) and health behavior indicators, crude and standardized rates with standard errors, 2008-2025. Korean Statistical Information Service",
+  "url": "https://kosis.kr/statHtml/statHtml.do?orgId=177&tblId=DT_H_OBE_OBE",
+  "year": 2026,
+  "accessed": "November 25, 2026",
+  "zotero": "4QWE56EA",
+  "verified": "Zotero SPPE_OBES_2026 2026-11-25"
+ },
+ "web:mcst2026facilities": {
+  "type": "web",
+  "authors": "Ministry of Culture, Sports and Tourism",
+  "title": "National public sports facility status, 2007-2024",
+  "url": "https://www.mcst.go.kr/site/s_policy/dept/deptList.jsp?pType=07",
+  "year": 2026,
+  "accessed": "October 18, 2026",
+  "zotero": "AXWFQHIS",
+  "verified": "Zotero SPPE_OBES_2026 2026-11-25"
+ },
+ "web:mois2026licence": {
+  "type": "web",
+  "authors": "Ministry of the Interior and Safety",
+  "title": "Local administrative licensing data: general restaurants and instant food manufacturing and processing businesses, 2011-2024. Public Data Portal",
+  "url": "https://apis.data.go.kr/1741000/general_restaurants/info; https://apis.data.go.kr/1741000/instant_food_processors/info",
+  "year": 2026,
+  "accessed": "October 20, 2026",
+  "zotero": "BH2GCIGG",
+  "verified": "Zotero SPPE_OBES_2026 2026-11-25"
+ },
+ "web:rcore2025": {
+  "type": "web",
+  "authors": "R Core Team",
+  "title": "R: a language and environment for statistical computing. Version 4.6.0. R Foundation for Statistical Computing, Vienna, Austria",
+  "url": "https://www.R-project.org/",
+  "year": 2026,
+  "accessed": "November 25, 2026",
+  "zotero": "QXFXDD6X",
+  "verified": "Zotero SPPE_OBES_2026 2026-11-25"
+ },
+ "yoon2014community": {
+  "type": "journal",
+  "authors": [
+   "Yoon NH",
+   "Kwon S"
+  ],
+  "title": "The effects of community environmental factors on obesity among Korean adults: a multilevel analysis",
+  "journal": "Epidemiol Health",
+  "year": 2014,
+  "vol": "36",
+  "issue": "",
+  "pages": "e2014036",
+  "doi": "10.4178/epih/e2014036",
+  "zotero": "UQVJ7CUV",
+  "verified": "Zotero SPPE_OBES_2026 2026-11-25 (format: PubMed esummary 2026-11-11)",
+  "pmid": "25666167"
  },
  "yun2026spatial": {
   "type": "journal",
@@ -1009,15 +1061,8 @@
   "issue": "",
   "pages": "1857479",
   "doi": "10.3389/fpubh.2026.1857479",
-  "pmid": "42558617",
-  "verified": "PubMed efetch 2026-11-24; key/PMID/DOI = refs/manifest/ALL_refs.csv"
- },
- "web:rcore2025": {
-  "type": "web",
-  "authors": "R Core Team",
-  "title": "R: a language and environment for statistical computing. Version 4.6.0. R Foundation for Statistical Computing, Vienna, Austria",
-  "url": "https://www.R-project.org/",
-  "year": 2026,
-  "accessed": "November 25, 2026"
+  "zotero": "MXRZ5WJF",
+  "verified": "Zotero SPPE_OBES_2026 2026-11-25 (format: PubMed efetch 2026-11-24; key/PMID/DOI = refs/manifest/ALL_refs.csv)",
+  "pmid": "42558617"
  }
 }
